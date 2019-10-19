@@ -1,0 +1,19 @@
+modelpaths:
+   cf_model_path:  "/app/models/cf_model"
+   lf_model_path:  "/app/models/lf_model"
+   rot_model_path: "/app/models/rot_model"
+   ptx_model_path: "/app/models/ptx_model"
+   freeair_model_json: "/app/models/pne_model/pne-04162019.json"
+   freeair_model_weights: "/app/models/pne_model/pne-04162019.hdf5"
+   carina_model_json: "/app/models/carina_model/carina002.json"
+   carina_model_weights: "/app/models/carina_model/carina002.hdf5"
+   ettube_model_json: "/app/models/ett_model/ett-dec10.json"
+   ettube_model_weights: "/app/models/ett_model/ett-dec10.hdf5"
+   ettubetip_model_json: "/app/models/etttip_model/etttip-sn480.json"
+   ettubetip_model_weights: "/app/models/etttip_model/etttip-sn480.hdf5"
+
+heatmap_path: "/app/heatmapdir"
+upload_path: "/app/uploaddir"
+grpc_bind_address: "aiserver_dev:50052"
+app_port: 3001
+

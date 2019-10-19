@@ -1,0 +1,142 @@
+// Copyright 2015 gRPC authors.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+syntax = "proto3";
+
+package inferserver;
+
+// The inference service definition.
+service InferChestFrontal {
+  rpc inferDCM (dcmRequest) returns (chestFrontalReply) {}
+}
+
+service InferRotation {
+  rpc inferDCM (dcmRequest) returns (rotationReply) {}
+}
+
+service InferLungField {
+  rpc inferDCM (dcmRequest) returns (lungFieldReply) {}
+}
+
+service InferPneumothorax {
+  rpc inferDCM (dcmRequest) returns (ptxReply) {}
+}
+
+service InferFreeAir {
+  rpc inferDCM (dcmRequest) returns (freeAirReply) {}
+}
+
+service InferCarina {
+  rpc inferDCM (dcmRequest) returns (carinaReply) {}
+}
+
+service InferETTube {
+  rpc inferDCM (dcmRequest) returns (ettubeReply) {}
+}
+
+service InferETTubeTip {
+  rpc inferDCM (dcmRequest) returns (ettubeTipReply) {}
+}
+
+enum RotationResult {
+   UPRIGHT=0;
+   CLOCKWISE_270=1;
+   UPSIDE_DOWN=2;
+   CLOCKWISE_90=3;
+}
+
+enum ChestFrontalResult {
+  FRONTAL=0;
+  NON_FRONTAL=1;
+}
+
+enum LungFieldResult {
+   LUNG_FIELDS_OK=0;
+   LUNG_FIELDS_CLIPPED=1;
+}
+
+enum PneumothoraxResult {
+   PNEUMOTHORAX_PRESENT=0;
+   PNEUMOTHORAX_ABSENT=1;
+}
+
+enum FreeAirResult {
+   FREEAIR_PRESENT=0;
+   FREEAIR_ABSENT=1;
+}
+
+enum CarinaResult {
+   CARINA_PRESENT=0;
+   CARINA_ABSENT=1;
+}
+
+enum ETTubeResult {
+   ETTUBE_PRESENT=0;
+   ETTUBE_ABSENT=1;
+}
+
+enum ETTubeTipResult {
+   ETTUBE_TIP_PRESENT=0;
+   ETTUBE_TIP_ABSENT=1;
+}
+
+// The request message containing the input dicom file
+message dcmRequest {
+  string dcmname = 1;
+}
+
+message rotationReply {
+  RotationResult result=1;
+  float  confidenceScore = 2;
+}
+
+message chestFrontalReply {
+  ChestFrontalResult result=1;
+  float  confidenceScore = 2;
+}
+
+message lungFieldReply {
+  LungFieldResult result =1;
+  float  confidenceScore = 2;
+}
+
+message ptxReply {
+  PneumothoraxResult result =1;
+  float  confidenceScore = 2;
+  string heatmapPath=3;
+}
+
+message freeAirReply {
+  FreeAirResult result =1;
+  float  confidenceScore = 2;
+  string heatmapPath=3;
+}
+
+message carinaReply {
+  CarinaResult result =1;
+  float  confidenceScore = 2;
+  string heatmapPath=3;
+}
+
+message ettubeReply {
+  ETTubeResult result =1;
+  float  confidenceScore = 2;
+  string heatmapPath=3;
+}
+
+message ettubeTipReply {
+  ETTubeTipResult result =1;
+  float  confidenceScore = 2;
+  string heatmapPath=3;
+}

@@ -1,0 +1,12 @@
+.btn-tgon
+{
+  background-color: #6666aa;
+  color:#FFF;
+  border-color: #2F3E48;
+}
+.btn-tgon:hover, .btn-tgon:focus, .btn-tgon:active, .btn-tgon.active, .open .dropdown-toggle.btn-tgon {
+
+  background-color: #666689;
+  color:#FFF;
+  border-color: #31347B;
+ }

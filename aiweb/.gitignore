@@ -1,0 +1,6 @@
+build/
+heatmaps/
+latest.tar.gz
+node_modules/
+uploadedFiles/
+

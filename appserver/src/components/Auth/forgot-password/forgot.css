@@ -1,0 +1,37 @@
+body{
+    background: url("../../../assets/image.jpg");
+    background-size:cover;
+    background-position:top;
+    background: cover;
+    background-repeat: no-repeat;
+    /* background-color: rgb(0,181, 226) */
+}
+.inp{
+    background-color: transparent;
+    color: antiquewhite;
+    border-radius: 35px;
+
+}
+.txt {
+    color: rgb(0,181, 226)
+}
+h2, h4 , h1, h3,h5{
+    color: azure
+}
+.border-right {
+    border-right: 1px solid #00B5E2;
+
+}
+.container{
+    height: 100vh;
+}
+.tst{
+    height: inherit;
+    align-content: center;
+}
+.btn{
+    border-radius: 35px;
+    padding: 5px 30px;
+
+}
+

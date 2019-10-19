@@ -1,0 +1,9 @@
+[submodule "aiweb"]
+	path = aiweb
+	url = https://github.build.ge.com/212019592/aiweb.git 
+[submodule "aiserver"]
+	path = aiserver
+	url = https://github.build.ge.com/212019592/aiserver.git
+[submodule "appserver"]
+	path = appserver
+	url = https://github.build.ge.com/212019592/xrayaiwebapp-frontend.git
