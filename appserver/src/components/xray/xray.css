@@ -1,12 +1,78 @@
 .bg {
+height: 100vh;
     background:url("../../assets/image.jpg");
     background-size: auto;
     background-position: top;
     background-repeat: no-repeat;
   }
-  .left-panel-opacity{
-    background:linear-gradient(rgba(0,0,0,.3));
+  .right-panel {
+  background:linear-gradient(rgba(19,41,75,.9));
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  width: 50vw;
+  height: 100%;
+  z-index: 999;
+  transform: translateX(100%);
+  -webkit-transform: translateX(100%);
+}
+
+.opened {
+  animation: slide-in 2s forwards;
+  -webkit-animation: slide-in 2s forwards;
+}
+
+.closed {
+  animation: slide-out 2s forwards;
+  -webkit-animation: slide-out 2s forwards;
+  right: 20px;
+}
+
+@keyframes slide-in {
+  0% {
+    -webkit-transform: translateX(100%);
   }
+  100% {
+    -webkit-transform: translateX(0%);
+  }
+}
+
+@-webkit-keyframes slide-in {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes slide-out {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@-webkit-keyframes slide-out {
+  0% {
+    -webkit-transform: translateX(0%);
+  }
+  100% {
+    -webkit-transform: translateX(100%);
+  }
+}
+
+.open-menu-arrow{
+-moz-transform: scaleX(-1);
+-webkit-transform: scaleX(-1);
+-o-transform: scaleX(-1);
+transform: scaleX(-1);
+-ms-filter: fliph; /*IE*/
+filter: fliph; /*IE*/
+}
+
   [type="radio"]:checked,
 [type="radio"]:not(:checked) {
     position: absolute;
@@ -60,3 +126,18 @@
 .btm-border{
     border-bottom: 2px solid #00B5E2;
 }
+
+.inputfile {
+	width: 0.3px;
+	height: 0.4px;
+	opacity: 0;
+	/* overflow: hidden; */
+	position: absolute;
+	z-index: -1;
+}
+.inputfile + label {
+    font-weight: 100;
+    color: #00B5E2;
+    display: inline-block;
+}
+

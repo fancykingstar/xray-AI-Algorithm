@@ -1,6 +1,6 @@
 {
   "realm": "XRayAIWeb",
-  "auth-server-url": "http://localhost:9081/auth",
+  "auth-server-url": "http://localhost:9080/auth",
   "ssl-required": "external",
   "resource": "xray-ai-webapp",
   "public-client": true,

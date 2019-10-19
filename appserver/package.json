@@ -24,7 +24,7 @@
     "lodash.debounce": "^4.0.8",
     "poper": "^0.1.1",
     "popper.js": "^1.14.7",
-    "react": "^16.9.0",
+    "react": "^16.8.2",
     "react-bootstrap": "^1.0.0-beta.5",
     "react-bootstrap-toggle": "^2.3.2",
     "react-cornerstone-viewport": "^0.1.21",

@@ -153,12 +153,9 @@ class Signup extends Component {
           </div>
 
         </div>
-
-
-        {/* right bottom logo */}
         <div style={{
               color: "white",
-              bottom: 60,
+              bottom: 65,
               right: 70,
               position:"absolute"
             }}>
