@@ -1,2 +1,9 @@
 html, body{
 }
+.bold {
+    font-weight: bold;
+}
+
+.cursor {
+    cursor: pointer !important;
+}
