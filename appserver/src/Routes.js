@@ -1,12 +1,13 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Welcome from "./components/Welcome"
 import AiApp from "./components/AiApp"
 import NotFound from "./components/NotFound"
 import Login from './components/Auth/login/login' 
 import ForgotPassword from './components/Auth/forgot-password/forgot-password'
 import Signup from './components/Auth/signup/signup'
 import XrayDetails from './components/xray/xrayDeatil'
+import DownloadPdf from './components/download-pdf-report/download-pdf-report'
+
 export default () => 
    <Switch>
       <Route path="/javascripts" render={(props) => {console.log("Gireesha " + props);}} />
@@ -15,6 +16,7 @@ export default () =>
       <Route path="/forgot-password" exact component={ForgotPassword}/>
       <Route path="/signup" exact component={Signup}/>
       <Route path="/XrayDetails" exact component={XrayDetails}/>
+      <Route path="/download-pdf" exact component={DownloadPdf}/>
 
 { /* Finally, catch all unmatched routes */ } <Route path = "/rotation"
 exact render = {

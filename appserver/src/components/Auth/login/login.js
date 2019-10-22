@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import "./login.css";
 import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
+
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -11,8 +11,8 @@ class Login extends Component {
   render() {
     return (
       <div className="outer container-fluid">
-        <div className="row tst ml-5">
-          <div className='col-lg-4 col-md-4 col-sm-6 col-10 mb-5 mr-5'>
+        <div className="row tst ml-5 align-items-center">
+          <div className='col-lg-4 col-md-4 col-sm-5 col-10 mb-5 mr-5'>
             <div className="form-container" >
               <Form>
                 <h5 className='m-2'>LOGIN</h5>
@@ -52,8 +52,8 @@ class Login extends Component {
               </Form>
             </div>
           </div>
-          <div className="col-lg-6 col-md-6 col-sm-6 col-10 d-flex align-items-center">
-          <div className="mb-5 pb-5">
+          <div className="col-lg-6 col-md-7 col-sm-6 col-10 d-flex align-items-center">
+          <div className="mb-5 pb-5" style={{overflow:'hidden'}}>
               <p className="border-left mt-3"></p>
               <p className="row ml-5 logo-container">
                 <img

@@ -1,14 +1,13 @@
 import React, {Component}  from 'react';
-import Header from './components/Header' 
 import Routes from "./Routes"
-import Footer from './components/footer/footer'
+import Footer from './components/footer/footer.js'
 import "./initCornerstone"
+import "bootstrap/dist/js/bootstrap.min"
 
 class App extends Component {
    render()  {
       return (
-            <div className="App containter">
-               {/* <Header /> */}
+            <div>
                <Routes />
                <Footer />
             </div>

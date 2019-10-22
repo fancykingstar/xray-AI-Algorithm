@@ -1,0 +1,23 @@
+.pdf-component {
+    background: white !important;
+    height: 100vh;
+    .letter-spacing {
+      letter-spacing: 2px;
+      font-size: 18px;
+    }
+    .pdf-img {
+      width: 100%;
+      height: 500px;
+    }
+    .reports-arrow {
+      position: absolute;
+      right: -15px;
+      bottom: -8px;
+    }
+    .pdf-details-letter-spacing {
+      letter-spacing: 2px;
+    }
+    .border-bottom {
+      border-bottom: 1px solid #dee2e6 !important;
+    }
+  }
