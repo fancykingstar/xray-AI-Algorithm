@@ -235,7 +235,7 @@ class XrayDetails extends Component {
                     className="xray-detail-radio-btn"
                     onClick={this.colHeck}
                   />
-                  <label for="test2">CHEST: PRO TO CO L CHECK</label>
+                  <label for="test2">CHEST: PROTOCOL CHECK</label>
                 </p>
                 <p className="btm-border">
                   <input
