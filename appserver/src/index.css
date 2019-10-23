@@ -1,1 +1,24 @@
-@font-face {font-family: "GE Inspira"; src: url("//db.onlinewebfonts.com/t/6c73954e6f7888f79d913cdbccf08d7c.eot"); src: url("//db.onlinewebfonts.com/t/6c73954e6f7888f79d913cdbccf08d7c.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/6c73954e6f7888f79d913cdbccf08d7c.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/6c73954e6f7888f79d913cdbccf08d7c.woff") format("woff"), url("//db.onlinewebfonts.com/t/6c73954e6f7888f79d913cdbccf08d7c.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/6c73954e6f7888f79d913cdbccf08d7c.svg#GE Inspira") format("svg"); }
+@font-face {
+  font-family: 'GE Inspira';
+  font-style: normal;
+  src: url(./assets/fonts/GEInspiraSans-Regular-v02.ttf) format('truetype');
+}
+
+html, body{
+  background: url("./assets/image.jpg") !important;
+  background-size: cover;
+  background-position: top;
+  background: cover;
+  background-repeat: no-repeat;
+  overflow-x: hidden;
+  height: 100%;
+  font-family: 'GE Inspira' !important;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.cursor {
+    cursor: pointer !important;
+}

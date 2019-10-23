@@ -5,6 +5,7 @@ body {
   background: cover;
   background-repeat: no-repeat;
   /* background-color: rgb(0,181, 226) */
+  font-family: 'GE Inspira' !important;
 }
 .inp {
   background-color: transparent;
@@ -28,8 +29,6 @@ h1,
 h3,
 h5 {
   color: azure;
-  font-family: sans-serif;
-
 }
 .outer {
   height: 100vh;

@@ -227,14 +227,14 @@ class Signup extends Component {
 
         <div data-animation='first'>
           <div style={{width: '30vw'}} className="d-flex align-items-center">
-            <p className="mb-5 pb-5" style={{overflow: 'hidden'}}>
+            <p className="mb-5 pb-5 ml-4" style={{overflow: 'hidden'}}>
               <p className="border-left mt-3"></p>
               <p className="row ml-3 logo-container">
                 <img
                   alt=""
                   src="/ge.png"
-                  width="60"
-                  height="80"
+                  width="90"
+                  height="90"
                   style={{color: "white"}}
                   className="d-inline-block align-top img-fluid"
                 />

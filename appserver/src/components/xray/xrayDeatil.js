@@ -109,7 +109,7 @@ class XrayDetails extends Component {
         >
           <div className="row">
             {/* side image */}
-            <div style={{ margin: "inherit", marginTop: 130, marginLeft: -20, display:"flex", alignItems:"center" }}>
+            <div className="" style={{ margin: "inherit", marginTop: 130, marginLeft: -20, display:"flex", alignItems:"center" }}>
               <img
                 alt="menu arrow icon"
                 src={require("../../assets/menu-arrow.png")}
@@ -122,7 +122,7 @@ class XrayDetails extends Component {
              {  !this.state.openRightPanel && <h1 style={{ transform: "rotate(90deg)", marginLeft: -85, fontSize: 30, letterSpacing: 5 }}> Al Algorithm</h1>}
             </div>
             {/* ends */}
-          <div className="col-lg-5">
+          <div className="col-lg-6 col-md-5 col-sm-10 col-10">
               <div className="row">
                 <img
                   alt="arrow icon"
@@ -209,7 +209,7 @@ class XrayDetails extends Component {
              <div className={"col-lg-5" + (this.state.openRightPanel ? "" : "quality-alignment")}>
               <h5 className="mt-3">QUALITY CARE SUITE</h5>
               <div>
-                <p className="btm-border">
+                <p className="btm-border text-left small">
                   <input
                     checked={
                       this.state.pneumothorox === true ||
@@ -223,7 +223,7 @@ class XrayDetails extends Component {
                   />
                   <label for="test1">CHEST: AUTO ROTATE</label>
                 </p>
-                <p className="btm-border">
+                <p className="btm-border text-left">
                   <input
                     checked={
                       this.state.pneumothorox === true ||
@@ -237,7 +237,7 @@ class XrayDetails extends Component {
                   />
                   <label for="test2">CHEST: PROTOCOL CHECK</label>
                 </p>
-                <p className="btm-border">
+                <p className="btm-border text-left small">
                   <input
                     checked={
                       this.state.pneumothorox === true ||
@@ -253,11 +253,11 @@ class XrayDetails extends Component {
                 </p>
               </div>
 
-              <div className="mt-5 mb-4 ml-3">
+              <div className="mt-5 mb-4 btm-border">
                 <h5 className="mt-3">CRITICAL CARE SUITE</h5>
               </div>
 
-              <p className="btm-border">
+              <p className="btm-border text-left small">
                 <input
                   checked = {this.state.pneumothorox}
                   type="radio"

@@ -1,8 +1,8 @@
 import React, {Component}  from 'react';
+import './index.css';
 import Routes from "./Routes"
 import Footer from './components/footer/footer.js'
 import "./initCornerstone"
-import "bootstrap/dist/js/bootstrap.min"
 
 class App extends Component {
    render()  {
