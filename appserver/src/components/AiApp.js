@@ -79,6 +79,7 @@ class AiApp extends Component {
    }
 
    dcmfilehandler = async (dcmfile) => {
+      debugger
       var imageid=cornerstoneWADOImageLoader.wadouri.fileManager.add(dcmfile);
       this.setState(() => {
          return {imageId: imageid, mainimgId: imageid,
@@ -167,8 +168,10 @@ class AiApp extends Component {
    render() {
       if (this.state.keycloak && this.state.authenticated) {
          if ( this.props.pipeline !== this.state.pipeline )  {
+            console.log('-===================================')
             this.reinit()
          }
+         console.log('-----------------------------------');
          return (
             <EE.Provider value={this.ee}> 
                <Container fluid={"true"} style={ { paddingLeft: 0, paddingRight: 0 } }>

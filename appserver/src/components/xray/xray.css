@@ -185,3 +185,8 @@ filter: fliph; /*IE*/
 .quality-alignment{
   margin: 0 0 0 95px;
 }
+
+.sidebar-toolbar {
+  padding-left: 45px;
+  padding-right: 95px;
+}

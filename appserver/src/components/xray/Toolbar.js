@@ -48,7 +48,7 @@ class ToggleToolItem extends Component {
             onEntering={this.entering}
           > 
             <Toggle onClick={this.handleClick}
-               style={ { width: "10%", marginTop: "8px", borderRadius: '30px' } }
+               style={ { width: "100%", marginTop: "8px", borderRadius: '30px' } }
                on={<div style={{ flex: "1 1", fontSize: "14px"}}>{this.props.onText}</div>}
                off={<div style={{ flex: "1 1", fontSize: "14px"}} >{this.props.offText}</div>}
                onstyle="tgon"

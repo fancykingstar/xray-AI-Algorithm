@@ -25,10 +25,28 @@
 
 .btn.toggle.btn-md.btn-tgon .toggle-handle.btn.btn-warning {
   margin-left: -36px;
+  background: #ffffff;
+}
+
+.btn.toggle.btn-md.btn-tgon {
+  background: #8396b0;
+}
+
+.btn.toggle.btn-md.btn-tgon .btn-tgon {
+  color: #ffffff;
+}
+
+.btn.toggle.btn-md.off.btn-tgon {
+  background: none; 
 }
 
 .btn.toggle.btn-md.off.btn-tgon .toggle-handle.btn.btn-warning {
   margin-left: 36px;
+  background: #2F3E48;
+}
+
+.btn.toggle.btn-md.off.btn-tgon .btn-tgon {
+  color:#687e98;
 }
 
 .btn-warning {
