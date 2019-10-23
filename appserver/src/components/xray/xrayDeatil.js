@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, Badge, Row, Col, Container } from 'react-bootstrap';
+import { Card, Badge, Row, Col, Container, Dropdown } from 'react-bootstrap';
 import Upload from './upload';
 import { Sidebar, Panel, PanelTitle} from './sidebar';
 import AppDropZone from './AppDropZone';
@@ -165,7 +165,6 @@ class XrayDetails extends Component {
    }
 
    dcmfilehandler = async (dcmfile) => {
-      debugger
        console.log(dcmfile, "*************************");
       var imageid=cornerstoneWADOImageLoader.wadouri.fileManager.add(dcmfile);
       this.setState(() => {
@@ -378,7 +377,17 @@ class XrayDetails extends Component {
                     textAlign:"center"
                   }}
                 >
-                    demo Images
+                  <Dropdown>
+                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                      demo Images
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                      <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                      <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                      <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
                 </div>
 
                 <hr style={{ color:"#00B5E2"}} />

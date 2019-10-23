@@ -206,3 +206,27 @@ filter: fliph; /*IE*/
 .bg > .container-fluid > .row > div {
   height: calc(100vh - 100px);
 }
+
+.dropdown .btn-success {
+  background: none;
+  border: none;
+  color: #00B5E2;
+}
+
+.btn-success:not(:disabled):not(.disabled).active:focus, .btn-success:not(:disabled):not(.disabled):active:focus, .show>.btn-success.dropdown-toggle:focus {
+  box-shadow: none;
+}
+
+.btn-success:not(:disabled):not(.disabled).active, .btn-success:not(:disabled):not(.disabled):active, .show>.btn-success.dropdown-toggle {
+  background: none;
+  border: none;
+  color: #00B5E2;
+}
+
+.dropdown-menu {
+  background-color: none;
+}
+
+.dropdown-menu a {
+  color: #00B5E2;
+}

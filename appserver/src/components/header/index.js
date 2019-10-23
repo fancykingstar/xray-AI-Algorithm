@@ -4,20 +4,21 @@ import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { LinkContainer } from "react-router-bootstrap";
 import { IndexLinkContainer } from "react-router-bootstrap";
-import { Route, Switch } from 'react-router-dom';
+import './index.css';
 
 class Header extends Component {
   render() {
     return (
-         <Navbar fluid={"true"} collapseOnSelect variant="dark" style={{backgroundColor: '#666699', color: 'White' }}>
+         <Navbar fluid={"true"} variant="dark" style={{backgroundColor: '#666699', color: 'White' }}>
             <LinkContainer to="/">
                <Navbar.Brand>
-                     <img alt="" src="/ge.png" 
+                     <img alt="" src="/logo-ge.svg" 
                         width="40" height="40" 
                         className="d-inline-block align-top" />
-                     {' GE Healthcare'}
+                     <span>{' GE Healthcare'}</span>
                </Navbar.Brand>
             </LinkContainer>
+            <p style={{ "margin-bottom": 0, "margin-left": "45px" }}><span style={{ "font-weight": "bold" }}>X-RAY AL</span> EXPERIENCE</p>
          </Navbar>
     );
   }
