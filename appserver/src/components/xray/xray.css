@@ -5,11 +5,11 @@ height: 100vh;
     background-position: top;
     background-repeat: no-repeat;
   }
-  .right-panel {
+.right-panel {
   background:linear-gradient(rgba(19,41,75,.9));
   background: -webkit-gradient(linear, left top, left bottom, from(rgba(19,41,75,.9)));
   position: absolute;
-  top: -8px;
+  top: 58px;
   right: -10px;
   width: 50vw;
   height: 100%;
@@ -99,8 +99,8 @@ filter: fliph; /*IE*/
 .xray-detail-radio-btn:checked + label:before{
   content: '';
   position: absolute;
-  left: 0;
-  top: 0;
+  left: -20px;
+  top: 20px;
   width: 20px;
   height: 20px;
   border: 1px solid #ed7d31;
@@ -110,8 +110,8 @@ filter: fliph; /*IE*/
 .xray-detail-radio-btn:not(:checked) + label:before {
     content: '';
     position: absolute;
-    left: 0;
-    top: 0;
+    left: -20px;
+    top: 20px;
     width: 20px;
     height: 20px;
     border: 1px solid #ddd;
@@ -124,8 +124,8 @@ filter: fliph; /*IE*/
     height: 12px;
     background: #ed7d31;
     position: absolute;
-    top: 4px;
-    left: 4px;
+    top: 24px;
+    left: -16px;
     border-radius: 100%;
     -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
@@ -136,8 +136,8 @@ filter: fliph; /*IE*/
     height: 12px;
     background: #00B5E2;
     position: absolute;
-    top: 4px;
-    left: 4px;
+    top: 24px;
+    left: -16px;
     border-radius: 100%;
     -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
@@ -152,8 +152,20 @@ filter: fliph; /*IE*/
     -webkit-transform: scale(1);
     transform: scale(1);
 }
-.btm-border{
-    border-bottom: 2px solid #00B5E2;
+
+.btm-border {
+  position: relative;
+}
+
+.btm-border hr {
+    color: white;
+    height: 1px;
+    background: white;
+    position: absolute;
+    width: 100%;
+    top: -6px;
+    background: rgba(29,48,76,1);
+    z-index: -1;
 }
 
 .inputfile {
@@ -189,4 +201,8 @@ filter: fliph; /*IE*/
 .sidebar-toolbar {
   padding-left: 45px;
   padding-right: 95px;
+}
+
+.bg > .container-fluid > .row > div {
+  height: calc(100vh - 100px);
 }

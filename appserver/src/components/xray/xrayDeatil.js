@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, Badge, Row, Col } from 'react-bootstrap';
+import { Card, Badge, Row, Col, Container } from 'react-bootstrap';
 import Upload from './upload';
 import { Sidebar, Panel, PanelTitle} from './sidebar';
 import AppDropZone from './AppDropZone';
@@ -8,6 +8,8 @@ import EventEmitter from 'wolfy87-eventemitter'
 import Toolbar from "./Toolbar";
 import Dropzone from 'react-dropzone';
 import Viewer from '../Viewer';
+import Header from '../header/index.js';
+import UploadViewer from './UploadViewer';
 import "../loadimage.js";
 import cornerstoneWADOImageLoader from 'cornerstone-wado-image-loader';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -253,33 +255,31 @@ class XrayDetails extends Component {
   render() {
     return (
       <div className="bg">
+        <Header />
         <EE.Provider value={this.ee}>
-          <Row>
-            <Col lg={2} style={{ height: this.state.height, paddingLeft: 0, paddingRight: 0 }}>
-              <div className='sidebar-toolbar'>
-                <Panel>
-                  <PanelTitle>
-                     <FontAwesomeIcon icon={faAngleRight} style={{ color:'#3ab3dd', height: '25px', width: '25px' }} />
-                     CONTROLS 
-                  </PanelTitle>
+          <Container fluid={"true"} style={ { paddingLeft: 0, paddingRight: 0 } }>
+            <Row style={{ marginLeft: 0, marginRight: 0 }}>
+              <Col lg={2} style={{ paddingLeft: 0, paddingRight: 0 }}>
+                <div className='sidebar-toolbar'>
+                  <Panel>
+                    <PanelTitle>
+                       <FontAwesomeIcon icon={faAngleRight} style={{ color:'#3ab3dd', height: '25px', width: '25px' }} />
+                       CONTROLS 
+                    </PanelTitle>
+                    <EE.Consumer>
+                       {(val) => <Toolbar evem={val} />}
+                    </EE.Consumer>
+                 </Panel>
+                </div>
+              </Col>
+              <Col lg={9} style={{ paddingLeft: 0, paddingRight: 0 }}>
                   <EE.Consumer>
-                     {(val) => <Toolbar evem={val} />}
+                     {(val) => <Viewer imageid={this.state.imageId} 
+                        evem={val} heatmapactive={this.state.heatmapactive} heatmapState={this.state.imageId === this.state.heatmapId}/>}
                   </EE.Consumer>
-               </Panel>
-              </div>
-            </Col>
-            <Col lg={9} style={{ height: this.state.height, paddingLeft: 0, paddingRight: 0 }}>
-              <div
-                onContextMenu={e => e.preventDefault()}
-                className="d-flex justify-content-center align-items-center"
-              >
-                <EE.Consumer>
-                   {(val) => <Viewer imageid={this.state.imageId} 
-                      evem={val} heatmapactive={this.state.heatmapactive} heatmapState={this.state.imageId === this.state.heatmapId}/>}
-                </EE.Consumer>
-              </div>
-            </Col>
-          </Row>
+              </Col>
+            </Row>
+          </Container>
         </EE.Provider>
         <div
           className={
@@ -323,6 +323,12 @@ class XrayDetails extends Component {
                     alignSelf: "center"
                   }}
                 >
+                  <EE.Provider value={this.ee}>
+                    <EE.Consumer>
+                       {(val) => <UploadViewer imageid={this.state.imageId} 
+                          evem={val} heatmapactive={this.state.heatmapactive} heatmapState={this.state.imageId === this.state.heatmapId}/>}
+                    </EE.Consumer>
+                  </EE.Provider>
                 </div>
                 <Dropzone accept=".dcm,.png,.jpg"
                   onDrop={this.anDropFunc}>
@@ -401,6 +407,7 @@ class XrayDetails extends Component {
                     onClick={this.autoRotate}
                   />
                   <label htmlFor="test1">CHEST: AUTO ROTATE</label>
+                  <hr />
                 </p>
                 <p className="btm-border">
                   <input
@@ -415,8 +422,9 @@ class XrayDetails extends Component {
                     onClick={this.colHeck}
                   />
                   <label htmlFor="test2">CHEST: PROTOCOL CHECK</label>
+                  <hr />
                 </p>
-                <p className="btm-border">
+                <p className="btm-border" style={{ "border-bottom": "1px solid rgba(29, 48, 76, 1)", "padding-bottom": "23px" }}>
                   <input
                     checked={
                       this.state.pneumothorox === true ||
@@ -429,6 +437,7 @@ class XrayDetails extends Component {
                     onClick={this.viewCheck}
                   />
                   <label htmlFor="test3">CHEST: FIELD OF VIEW CHECK</label>
+                  <hr />
                 </p>
               </div>
 
@@ -436,7 +445,7 @@ class XrayDetails extends Component {
                 <h5 className="mt-3">CRITICAL CARE SUITE</h5>
               </div>
 
-              <p className="btm-border">
+              <p className="btm-border" style={{ "border-bottom": "1px solid rgba(29, 48, 76, 1)", "padding-bottom": "23px" }}>
                 <input
                   checked = {this.state.pneumothorox}
                   type="radio"
@@ -446,6 +455,7 @@ class XrayDetails extends Component {
                   onClick={this.onPneumothoroxChecked}
                 />
                 <label htmlFor="test4">PNEUMOTHOROX</label>
+                <hr />
               </p>
               <button type="button" className="btn btn-secondary" onClick={this.resetRadio}>
                 RESET{" "}
