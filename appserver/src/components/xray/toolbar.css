@@ -1,0 +1,54 @@
+.btn-tgon
+{
+  color:#687e98;
+  border-color: #2F3E48;
+  font-size: 14px;
+}
+
+.btn-tgon > div {
+	font-size: 14px;
+}
+
+.btn-tgon:hover, .btn-tgon:focus, .btn-tgon:active, .btn-tgon.active, .open .dropdown-toggle.btn-tgon {
+  color:#687e98;
+  border-color: #31347B;
+  font-size: 14px;
+}
+
+.toggle-handle.btn.btn-warning {
+  margin-left: 36px;
+  border-radius: 50px;
+  height: 72%;
+  margin-top: 5px;
+  background: #2F3E48;
+}
+
+.btn.toggle.btn-md.btn-tgon .toggle-handle.btn.btn-warning {
+  margin-left: -36px;
+}
+
+.btn.toggle.btn-md.off.btn-tgon .toggle-handle.btn.btn-warning {
+  margin-left: 36px;
+}
+
+.btn-warning {
+	border: none;
+}
+
+.btn-warning:not(:disabled):not(.disabled).active:focus, .btn-warning:not(:disabled):not(.disabled):active:focus, .show>.btn-warning.dropdown-toggle:focus {
+	box-shadow: none;
+}
+
+.btn-warning.focus, .btn-warning:focus {
+	box-shadow: none;
+}
+
+.btn.focus, .btn:focus {
+	box-shadow: none;
+}
+
+.btn-warning:not(:disabled):not(.disabled):active, .btn-warning:hover {
+	background: #ffffff;
+	border: none;
+}
+

@@ -1,8 +1,26 @@
 import React, { Component } from "react";
+import { Card, Badge } from 'react-bootstrap';
+import Upload from './upload';
+import { Sidebar, Panel, PanelTitle} from './sidebar';
+import AppDropZone from './AppDropZone';
+import EE from './ee';
+import EventEmitter from 'wolfy87-eventemitter'
+import Toolbar from "./Toolbar";
+import Dropzone from 'react-dropzone';
+import Viewer from '../Viewer';
+import "../loadimage.js";
+import cornerstoneWADOImageLoader from 'cornerstone-wado-image-loader';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { uploadImageFile, requestPredict, downloadHeatmap, AUTH_REQUIRED } from '../api'
 import "./xray.css";
+import "../aiapp.css";
+
+
 class XrayDetails extends Component {
   constructor(props) {
     super(props);
+    const imageid = window.location.origin + "/";
     this.state = {
       openRightPanel: true,
       selectedFile: null,
@@ -11,8 +29,27 @@ class XrayDetails extends Component {
       colHeck: false,
       viewCheck: false,
       pneumothorox: false,
-      showButton: false
+      showButton: false,
+
+      image_loaded: false,
+      inferencing: false,
+      predictStatus: {},
+      pipeline: 'rotate',
+      imageId: imageid,
+      heatmapId: null,
+      mainimgId: imageid,
+      heatmapactive: false,
+      height: window.innerHeight - 72.5,
+      keycloak: null, 
+      authenticated: false
     };
+
+    this.resize = this.resize.bind(this);
+    this.dcmfilehandler = this.dcmfilehandler.bind(this);
+    this.predictionHandler = this.predictionHandler.bind(this);
+    this.toggleHeatmap = this.toggleHeatmap.bind(this);
+    this.ee = new EventEmitter();
+    this.ee.addListener('togglehmap', this.toggleHeatmap);
   }
 
   componentWillMount() {}
@@ -61,6 +98,7 @@ class XrayDetails extends Component {
       showButton: !this.state.showButton
     });
   };
+
   onPneumothoroxChecked = e => {
     this.setState({
       pneumothorox: !this.state.pneumothorox,
@@ -70,6 +108,7 @@ class XrayDetails extends Component {
       showButton: !this.state.showButton
     });
   };
+
   resetRadio = () =>{
     this.setState({
         pneumothorox: false,
@@ -80,27 +119,160 @@ class XrayDetails extends Component {
       });
   }
 
+  anDropFunc = (accepted, rejected) => {
+      if( accepted[0] ) { 
+         if( accepted[0].type === "image/jpeg" ||
+            accepted[0].type === "image/png" ) {
+            this.wimgfilehandler(accepted[0]);
+         } else {
+            this.dcmfilehandler(accepted[0]);
+         } 
+      }
+   }
+
+   toggleHeatmap = (active) => {
+      if ( ! this.state.heatmapactive )
+         return;
+
+      if ( active ) {
+         this.setState(() => {
+            return {imageId: this.state.heatmapId}
+         });
+      } else {
+         this.setState(() => {
+            return {imageId: this.state.mainimgId}
+         });
+      }
+   }
+
+   onProgress = (data) => {
+   }
+
+   webimghandler = async (wimgfile) => {
+      const uploadStatus = await uploadImageFile({
+         file: wimgfile,
+         onProgress: this.onProgress
+      });
+      var imageid = window.location.origin + "/" + uploadStatus.uploadID;
+      this.setState(() => {
+         return {imageId: imageid, mainimgId: imageid,
+            heatmapId:null, heatmapactive:false, 
+            image_loaded: false, inferencing: true}
+      });
+      this.predictionHandler(uploadStatus);
+   }
+
+   dcmfilehandler = async (dcmfile) => {
+      var imageid=cornerstoneWADOImageLoader.wadouri.fileManager.add(dcmfile);
+      this.setState(() => {
+         return {imageId: imageid, mainimgId: imageid,
+            heatmapId:null, heatmapactive:false, 
+            image_loaded: false, inferencing: true}
+      });
+      const uploadStatus = await uploadImageFile({
+         file: dcmfile,
+         onProgress: this.onProgress
+      });
+      this.predictionHandler(uploadStatus);
+   }
+
+   predictionHandler = async (uploadStatus) => {
+      const predictStatus = await requestPredict({
+         pipeline: this.state.pipeline,
+         uploadId: uploadStatus.uploadID
+      }); 
+      var heatmapid = null;
+      Object.values(predictStatus).forEach(value => {
+         if ( (value.inferStatus === "SUCCESS") && value.hasOwnProperty('heatmap') ) {
+            heatmapid = window.location.origin + "/" + value.heatmap;
+         }
+      });
+      if( heatmapid === null ) {
+         this.setState(() => {
+            return {image_loaded: true, predictStatus: predictStatus, inferencing: false}
+         });
+      } else {
+         this.setState(() => {
+            return {image_loaded: true, predictStatus: predictStatus, inferencing: false,
+               imageId: heatmapid, heatmapId: heatmapid, heatmapactive:true }
+         });
+      }
+   }
+
+
+   resize() {
+      this.setState(() => {
+         return {
+         height: window.innerHeight - 72.5
+         }
+      });
+      this.render()
+   }
+
+   renderPrediction = () => {
+      var cardlist =  Object.values(this.state.predictStatus).map( (value, i) => {
+               if( value.inferStatus === "SUCCESS" ) { 
+                  return (
+                     <Card.Text key={i} style={{color: 'yellow', textShadow: "2px 2px 4px #FF0000"}}>
+                        {value.class} <Badge pill variant="info"> {value.score.toFixed(2)} </Badge>
+                     </Card.Text>
+                  );
+               } else {
+                  return (
+                     <Card.Text key={i} style={{color: 'yellow', textShadow: "2px 2px 4px #FF0000"}}>
+                        {value.algorithm} <Badge pill variant="info">Failure</Badge> 
+                     </Card.Text>
+                  );
+               }
+      });
+      return (
+         <React.Fragment>
+            {cardlist}
+         </React.Fragment> 
+      );
+   }
+
+   reinit = () => {
+      const imageid = window.location.origin + "/" + this.props.splash;
+      this.setState(() => {
+         return {
+            image_loaded: false,
+            pipeline: this.state.pipeline,
+            imageId: imageid,
+            predictStatus: {},
+            inferencing: false,
+            heatmapId: null,
+            mainimgId: imageid,
+            heatmapactive: false,
+         }
+      });
+   }
+
   render() {
     return (
       <div className="bg">
-        <div
-          onContextMenu={e => e.preventDefault()}
-          className="d-flex justify-content-center align-items-center"
-        >
-          {this.state.imagePreviewUrl ? (
-            <img
-              alt="xray"
-              className="img-fluid h-100"
-              src={this.state.imagePreviewUrl}
-            />
-          ) : (
-            <img
-              alt="xray"
-              className="img-fluid h-100"
-              src={require("../../assets/xray-chest-demo-image.jpeg")}
-            />
-          )}
-        </div>
+        <EE.Provider value={this.ee}> 
+          <div className='sidebar-toolbar'>
+            <Panel>
+              <PanelTitle>
+                 <FontAwesomeIcon icon={faAngleRight} style={{ color:'#3ab3dd', height: '25px', width: '25px' }} />
+                 CONTROLS 
+              </PanelTitle>
+              <EE.Consumer>
+                 {(val) => <Toolbar evem={val} />}
+              </EE.Consumer>
+           </Panel>
+          </div>
+          <div
+            onContextMenu={e => e.preventDefault()}
+            className="d-flex justify-content-center align-items-center"
+          >
+            <EE.Consumer>
+               {(val) => <Viewer imageid={this.state.imageId} 
+                  evem={val} heatmapactive={this.state.heatmapactive} heatmapState={this.state.imageId === this.state.heatmapId}/>}
+            </EE.Consumer>
+          </div>
+        </EE.Provider>
         <div
           className={
             "right-panel m-2 " +
@@ -143,46 +315,45 @@ class XrayDetails extends Component {
                     alignSelf: "center"
                   }}
                 >
-                  {this.state.imagePreviewUrl ? (
-                    <img
-                      alt="xray"
-                      src={this.state.imagePreviewUrl}
-                      className="img-fluid h-100"
-                    />
-                  ) : (
-                    <img
-                      alt="xray"
-                      src={require("../../assets/xray-chest-demo-image.jpeg")}
-                      className="img-fluid h-100"
-                    />
-                  )}
                 </div>
-                <div
-                  className="mt-3"
-                  style={{
-                    height: 40,
-                    marginTop: 20,
-                    border: "2px dotted #00B5E2"
-                  }}
-                >
-                  <div className="d-flex justify-content-center align-items-center">
-                    <input
-                      type="file"
-                      onChange={this.fileChangedHandler}
-                      name="file"
-                      id="file"
-                      className="inputfile"
-                    />
-                    <label for="file text-bold">Input New Image</label>
-                    {/* <input type="file"  className='mr-1' style={{ color: '#00B5E2', }}></input> */}
-                    <img
-                      alt="plus icon"
-                      src={require("../../assets/add-icon.svg")}
-                      width="20px"
-                      height="20px"
-                    />
-                  </div>
-                </div>
+                <Dropzone accept=".dcm,.png,.jpg"
+                  onDrop={this.anDropFunc}>
+                 {({ getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject, acceptedFiles, rejectedFiles }) => {
+
+                   return (
+                     <div
+                       {...getRootProps()}
+                     >
+                       <input {...getInputProps()} />
+                       <div
+                          className="mt-3"
+                          style={{
+                            height: 40,
+                            marginTop: 20,
+                            border: "2px dotted #00B5E2"
+                          }}
+                        >
+                          <div className="d-flex justify-content-center align-items-center">
+                            <input
+                              type="file"
+                              onChange={this.fileChangedHandler}
+                              name="file"
+                              id="file"
+                              className="inputfile"
+                            />
+                            <label for="file text-bold">Input New Image</label>
+                            <img
+                              alt="plus icon"
+                              src={require("../../assets/add-icon.svg")}
+                              width="20px"
+                              height="20px"
+                            />
+                          </div>
+                        </div>
+                     </div>
+                   )
+                 }}
+               </Dropzone>
                 <div
                   className="mt-3"
                   style={{
