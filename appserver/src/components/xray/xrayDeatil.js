@@ -22,7 +22,8 @@ import "../aiapp.css";
 class XrayDetails extends Component {
   constructor(props) {
     super(props);
-    const imageid = window.location.origin + "/";
+    const imageid = '';
+
     this.state = {
       openRightPanel: true,
       selectedFile: null,
@@ -43,7 +44,10 @@ class XrayDetails extends Component {
       heatmapactive: false,
       height: window.innerHeight - 72.5,
       keycloak: null, 
-      authenticated: false
+      authenticated: false,
+
+      testImages: [
+      ],
     };
 
     this.resize = this.resize.bind(this);
@@ -76,29 +80,72 @@ class XrayDetails extends Component {
     this.setState({ openRightPanel: !this.state.openRightPanel });
   };
   autoRotate = () => {
-    this.setState({
-      autoRotate: !this.state.autoRotate,
-      viewCheck: false,
-      colHeck: false,
-      showButton: !this.state.showButton
-    });
+    if (this.state.pneumothorox) {
+      this.setState({
+        viewCheck: false,
+        colHeck: false,
+        pneumothorox: false,
+      });
+
+      if (this.state.autoRotate) this.setState({showButton: true});
+      else this.setState({showButton: false});
+    }
+    else {
+      this.setState({
+        autoRotate: !this.state.autoRotate,
+        viewCheck: false,
+        colHeck: false,
+        pneumothorox: false,
+      });
+      if (!this.state.autoRotate) this.setState({showButton: true});
+      else this.setState({showButton: false});
+    }
   };
   colHeck = () => {
-    this.setState({
-      colHeck:!this.state.colHeck,
-      autoRotate: false,
-      viewCheck: false,
-      showButton: !this.state.showButton
-    });
+    if (this.state.pneumothorox) {
+      this.setState({
+        autoRotate: false,
+        viewCheck: false,
+        pneumothorox: false,
+      });
+
+      if (this.state.colHeck) this.setState({showButton: true});
+      else this.setState({showButton: false});
+    }
+    else {
+      this.setState({
+        colHeck:!this.state.colHeck,
+        autoRotate: false,
+        viewCheck: false,
+        pneumothorox: false,
+      });
+
+      if (!this.state.colHeck) this.setState({showButton: true});
+      else this.setState({showButton: false});
+    }
   };
 
   viewCheck = () => {
-    this.setState({
-      viewCheck: !this.state.viewCheck,
-      autoRotate: false,
-      colHeck: false,
-      showButton: !this.state.showButton
-    });
+    if (this.state.pneumothorox) {
+      this.setState({
+        autoRotate: false,
+        colHeck: false,
+        pneumothorox: false,   
+      });
+
+      if (this.state.viewCheck) this.setState({showButton: true});
+      else this.setState({showButton: false});
+    } else {
+      this.setState({
+        viewCheck: !this.state.viewCheck,
+        autoRotate: false,
+        colHeck: false,
+        pneumothorox: false,   
+      });
+
+      if (!this.state.viewCheck) this.setState({showButton: true});
+      else this.setState({showButton: false});
+    }
   };
 
   onPneumothoroxChecked = e => {
@@ -107,8 +154,10 @@ class XrayDetails extends Component {
       autoRotate: !this.state.pneumothorox,
       viewCheck: !this.state.pneumothorox,
       colHeck: !this.state.pneumothorox,
-      showButton: !this.state.showButton
     });
+
+    if (!this.state.pneumothorox) this.setState({showButton: true});
+    else this.setState({showButton: false});
   };
 
   resetRadio = () =>{
@@ -127,6 +176,11 @@ class XrayDetails extends Component {
             accepted[0].type === "image/png" ) {
             this.wimgfilehandler(accepted[0]);
          } else {
+             let count = 0;
+             this.state.testImages.map((image, index) => {
+               if (image.name === accepted[0].name) count ++;
+             });
+             if (count === 0) this.setState({testImages: [...this.state.testImages, accepted[0]]});
             this.dcmfilehandler(accepted[0]);
          } 
       }
@@ -165,7 +219,6 @@ class XrayDetails extends Component {
    }
 
    dcmfilehandler = async (dcmfile) => {
-       console.log(dcmfile, "*************************");
       var imageid=cornerstoneWADOImageLoader.wadouri.fileManager.add(dcmfile);
       this.setState(() => {
          return {imageId: imageid, mainimgId: imageid,
@@ -235,20 +288,9 @@ class XrayDetails extends Component {
       );
    }
 
-   reinit = () => {
-      const imageid = window.location.origin + "/" + "Rotation.JPG";
-      this.setState(() => {
-         return {
-            image_loaded: false,
-            pipeline: this.state.pipeline,
-            imageId: imageid,
-            predictStatus: {},
-            inferencing: false,
-            heatmapId: null,
-            mainimgId: imageid,
-            heatmapactive: false,
-         }
-      });
+   reinit = (image) => {
+
+      this.dcmfilehandler(image);
    }
 
   render() {
@@ -271,11 +313,14 @@ class XrayDetails extends Component {
                  </Panel>
                 </div>
               </Col>
-              <Col lg={9} style={{ paddingLeft: 0, paddingRight: 0 }}>
+              <Col lg={9} style={{ paddingLeft: 0, paddingRight: 0 }} style={{ position: "relative" }}>
                   <EE.Consumer>
                      {(val) => <Viewer imageid={this.state.imageId} 
                         evem={val} heatmapactive={this.state.heatmapactive} heatmapState={this.state.imageId === this.state.heatmapId}/>}
                   </EE.Consumer>
+                  <div className="NOT-FOR-CLINICAL-USE">
+                    NOT FOR CLINICAL USE
+                  </div>
               </Col>
             </Row>
           </Container>
@@ -382,10 +427,10 @@ class XrayDetails extends Component {
                       demo Images
                     </Dropdown.Toggle>
 
-                    <Dropdown.Menu>
-                      <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                      <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                      <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                    <Dropdown.Menu drop="down">
+                      {this.state.testImages.map((image, index) => {
+                        return <Dropdown.Item key={index} onClick={() => this.reinit(image)}>{image.name}</Dropdown.Item>
+                      })}
                     </Dropdown.Menu>
                   </Dropdown>
                 </div>
@@ -403,8 +448,12 @@ class XrayDetails extends Component {
              <div className={"col-lg-5" + (this.state.openRightPanel ? "" : "quality-alignment")}>
               <h5 className="mt-3">QUALITY CARE SUITE</h5>
               <div>
-                <p className="btm-border">
+                <div className="btm-border">
                   <input
+                    defaultChecked={
+                      this.state.pneumothorox === true ||
+                       this.state.autoRotate === true 
+                    }
                     checked={
                       this.state.pneumothorox === true ||
                        this.state.autoRotate === true 
@@ -417,9 +466,13 @@ class XrayDetails extends Component {
                   />
                   <label htmlFor="test1">CHEST: AUTO ROTATE</label>
                   <hr />
-                </p>
-                <p className="btm-border">
+                </div>
+                <div className="btm-border">
                   <input
+                    defaultChecked={
+                      this.state.pneumothorox === true ||
+                      this.state.colHeck === true 
+                    }
                     checked={
                       this.state.pneumothorox === true ||
                       this.state.colHeck === true 
@@ -432,9 +485,13 @@ class XrayDetails extends Component {
                   />
                   <label htmlFor="test2">CHEST: PROTOCOL CHECK</label>
                   <hr />
-                </p>
-                <p className="btm-border" style={{ "border-bottom": "1px solid rgba(29, 48, 76, 1)", "padding-bottom": "23px" }}>
+                </div>
+                <div className="btm-border" style={{ "borderBottom": "1px solid rgba(29, 48, 76, 1)", "paddingBottom": "10px" }}>
                   <input
+                    defaultChecked={
+                      this.state.pneumothorox === true ||
+                     this.state.viewCheck === true 
+                    }
                     checked={
                       this.state.pneumothorox === true ||
                      this.state.viewCheck === true 
@@ -447,15 +504,16 @@ class XrayDetails extends Component {
                   />
                   <label htmlFor="test3">CHEST: FIELD OF VIEW CHECK</label>
                   <hr />
-                </p>
+                </div>
               </div>
 
               <div className="mt-5 mb-4 ml-3">
                 <h5 className="mt-3">CRITICAL CARE SUITE</h5>
               </div>
 
-              <p className="btm-border" style={{ "border-bottom": "1px solid rgba(29, 48, 76, 1)", "padding-bottom": "23px" }}>
+              <div className="btm-border" style={{ "borderBottom": "1px solid rgba(29, 48, 76, 1)", "paddingBottom": "10px" }}>
                 <input
+                  defaultChecked = {this.state.pneumothorox}
                   checked = {this.state.pneumothorox}
                   type="radio"
                   id="test4"
@@ -465,7 +523,7 @@ class XrayDetails extends Component {
                 />
                 <label htmlFor="test4">PNEUMOTHOROX</label>
                 <hr />
-              </p>
+              </div>
               <button type="button" className="btn btn-secondary" onClick={this.resetRadio}>
                 RESET{" "}
               </button>

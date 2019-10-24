@@ -35,8 +35,8 @@ class AiApp extends Component {
          mainimgId: imageid,
          heatmapactive: false,
          height: window.innerHeight - 72.5,
-         keycloak: null, 
-         authenticated: false
+         keycloak: true, 
+         authenticated: true
       }
       this.resize = this.resize.bind(this);
       this.dcmfilehandler = this.dcmfilehandler.bind(this);
@@ -79,7 +79,6 @@ class AiApp extends Component {
    }
 
    dcmfilehandler = async (dcmfile) => {
-      debugger
       var imageid=cornerstoneWADOImageLoader.wadouri.fileManager.add(dcmfile);
       this.setState(() => {
          return {imageId: imageid, mainimgId: imageid,
@@ -168,10 +167,8 @@ class AiApp extends Component {
    render() {
       if (this.state.keycloak && this.state.authenticated) {
          if ( this.props.pipeline !== this.state.pipeline )  {
-            console.log('-===================================')
             this.reinit()
          }
-         console.log('-----------------------------------');
          return (
             <EE.Provider value={this.ee}> 
                <Container fluid={"true"} style={ { paddingLeft: 0, paddingRight: 0 } }>

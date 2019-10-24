@@ -18,7 +18,7 @@ class Header extends Component {
                      <span>{' GE Healthcare'}</span>
                </Navbar.Brand>
             </LinkContainer>
-            <p style={{ "margin-bottom": 0, "margin-left": "45px" }}><span style={{ "font-weight": "bold" }}>X-RAY AL</span> EXPERIENCE</p>
+            <p style={{ "marginBottom": 0, "marginLeft": "45px" }}><span style={{ "fontWeight": "bold" }}>X-RAY AL</span> EXPERIENCE</p>
          </Navbar>
     );
   }

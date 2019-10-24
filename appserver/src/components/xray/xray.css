@@ -92,7 +92,7 @@ filter: fliph; /*IE*/
     position: relative;
     padding-left: 28px;
     cursor: pointer;
-    line-height: 20px;
+    line-height: 30px;
     display: inline-block;
     color: #00B5E2;
 }
@@ -114,7 +114,7 @@ filter: fliph; /*IE*/
     top: 20px;
     width: 20px;
     height: 20px;
-    border: 1px solid #ddd;
+    border: 1px solid #00B5E2;
     border-radius: 100%;
     background: transparent;
 }
@@ -163,7 +163,7 @@ filter: fliph; /*IE*/
     background: white;
     position: absolute;
     width: 100%;
-    top: -6px;
+    top: -3px;
     background: rgba(29,48,76,1);
     z-index: -1;
 }
@@ -223,10 +223,32 @@ filter: fliph; /*IE*/
   color: #00B5E2;
 }
 
-.dropdown-menu {
-  background-color: none;
+.dropdown-menu.show {
+  transform: translate3d(-2px, 36px, 0px) !important;
 }
 
-.dropdown-menu a {
-  color: #00B5E2;
+.NOT-FOR-CLINICAL-USE {
+  position: absolute;
+  color: #bfbfbf;
+  font-size: 40px;
+  background-image: linear-gradient(to right, rgba(19, 19, 19, 0.5) , rgba(135, 135, 135, 0.5), rgba(19, 19, 19, 0.5));
+  bottom: 100px;
+  width: 97.7%;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.btn-secondary {
+  border-radius: 20px;
+  padding: 2px 30px;
+  font-weight: bold;
+  font-size: 14px;
+  float: right;
+  margin-right: 5px;
+  margin-top: 15px;
+}
+
+.btn-secondary:after {
+  clear: both;
 }
