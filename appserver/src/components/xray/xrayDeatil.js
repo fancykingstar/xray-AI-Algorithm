@@ -48,6 +48,9 @@ class XrayDetails extends Component {
 
       testImages: [
       ],
+
+      dropdownStatus: false
+
     };
 
     this.resize = this.resize.bind(this);
@@ -415,12 +418,12 @@ class XrayDetails extends Component {
                 <div
                   className="mt-3"
                   style={{
-                    height: 30,
+                    height: 40,
                     alignSelf: "center",
-                    border: "2px solid #00B5E2",
                     color:"#00B5E2",
                     textAlign:"center"
                   }}
+                  id="dropdownBox"
                 >
                   <Dropdown>
                     <Dropdown.Toggle variant="success" id="dropdown-basic">

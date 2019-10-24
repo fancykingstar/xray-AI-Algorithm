@@ -62,7 +62,7 @@ class SeekerNetAlgorithm:
 
     def inferDicomFile(self,dcmfile):
         try:
-            print("Inferencing {} for {}".format(self.name,dcmfile),flush=True)
+            # print("Inferencing {} for {}".format(self.name,dcmfile),flush=True)
             start_t = datetime.now()
             data = dcm.readDICOMImage(dcmfile, True)
         except Exception as e:

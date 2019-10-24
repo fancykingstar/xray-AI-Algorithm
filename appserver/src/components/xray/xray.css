@@ -211,6 +211,7 @@ filter: fliph; /*IE*/
   background: none;
   border: none;
   color: #00B5E2;
+  width: 100%;
 }
 
 .btn-success:not(:disabled):not(.disabled).active:focus, .btn-success:not(:disabled):not(.disabled):active:focus, .show>.btn-success.dropdown-toggle:focus {
@@ -225,6 +226,8 @@ filter: fliph; /*IE*/
 
 .dropdown-menu.show {
   transform: translate3d(-2px, 36px, 0px) !important;
+  top: 1px;
+  left: 1px;
 }
 
 .NOT-FOR-CLINICAL-USE {
@@ -251,4 +254,15 @@ filter: fliph; /*IE*/
 
 .btn-secondary:after {
   clear: both;
+}
+
+.dropdown {
+  height: 100%;
+  background: none;
+  border: 2px solid #00B5E2;
+}
+
+.dropdown.show {
+  background: white;
+  border: none;
 }

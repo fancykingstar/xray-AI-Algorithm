@@ -36,7 +36,7 @@ class LungFieldAlgorthm:
 
     def inferDicomFile(self,dcmfile):
         try:
-            print("Inferencing Lung Field {}: ".format(dcmfile),flush=True)
+            # print("Inferencing Lung Field {}: ".format(dcmfile),flush=True)
             start_t = datetime.now()
             data = dcm.readDICOMImage(dcmfile, True)
         except Exception as e:
