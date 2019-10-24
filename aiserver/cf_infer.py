@@ -34,7 +34,7 @@ class ChestFrontalAlgorithm:
 
     def inferDicomFile(self,dcmfile):
         try:
-            print("Inferencing Chest Frontal {}: ".format(dcmfile),flush=True)
+            # print("Inferencing Chest Frontal {}: ".format(dcmfile),flush=True)
             start_t = datetime.now()
             data = dcm.readDICOMImage(dcmfile, True)
         except Exception as e:

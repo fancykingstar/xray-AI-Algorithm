@@ -35,7 +35,7 @@ class RotationAlgorithm:
 
     def inferDicomFile(self,dcmfile):
         try:
-            print("Inferencing Rotation {}".format(dcmfile),flush=True)
+            # print("Inferencing Rotation {}".format(dcmfile),flush=True)
             start_t = datetime.now()
             data = dcm.readDICOMImage(dcmfile, True,True)
         except Exception as e:

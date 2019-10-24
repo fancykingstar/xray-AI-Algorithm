@@ -35,8 +35,8 @@ class AiApp extends Component {
          mainimgId: imageid,
          heatmapactive: false,
          height: window.innerHeight - 72.5,
-         keycloak: null, 
-         authenticated: false
+         keycloak: true, 
+         authenticated: true
       }
       this.resize = this.resize.bind(this);
       this.dcmfilehandler = this.dcmfilehandler.bind(this);

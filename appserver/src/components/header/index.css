@@ -1,0 +1,14 @@
+nav {
+  	background-color: #041735; /* For browsers that do not support gradients */
+  	background-image: linear-gradient(to right, #041735 , #082248); /* Standard syntax (must be last) */
+
+}
+
+nav a span {
+	line-height: 40px;
+	margin-left: 10px;
+}
+
+p {
+	font-size: 22px;
+}

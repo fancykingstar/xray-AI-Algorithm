@@ -118,6 +118,10 @@ class Viewer extends Component {
    }
 
    render() {
+     console.log(this.props.evem);
+     console.log(this.props.heatmapState);
+     console.log(this.state.imageId);
+     console.log(this.props.heatmapactive);
      return (
           <Wrapper>
             {ReactResizeDetector && (

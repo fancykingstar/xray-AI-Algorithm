@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Toggle  from 'react-bootstrap-toggle';
-import "./toolbar.css"
+{/*import "./toolbar.css"*/}
 
 class HeatmapToggle extends Component {
   constructor(props) {

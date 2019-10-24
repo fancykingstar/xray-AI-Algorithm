@@ -5,11 +5,11 @@ height: 100vh;
     background-position: top;
     background-repeat: no-repeat;
   }
-  .right-panel {
+.right-panel {
   background:linear-gradient(rgba(19,41,75,.9));
   background: -webkit-gradient(linear, left top, left bottom, from(rgba(19,41,75,.9)));
   position: absolute;
-  top: -8px;
+  top: 58px;
   right: -10px;
   width: 50vw;
   height: 100%;
@@ -92,15 +92,15 @@ filter: fliph; /*IE*/
     position: relative;
     padding-left: 28px;
     cursor: pointer;
-    line-height: 20px;
+    line-height: 30px;
     display: inline-block;
     color: #00B5E2;
 }
 .xray-detail-radio-btn:checked + label:before{
   content: '';
   position: absolute;
-  left: 0;
-  top: 0;
+  left: -20px;
+  top: 20px;
   width: 20px;
   height: 20px;
   border: 1px solid #ed7d31;
@@ -110,11 +110,11 @@ filter: fliph; /*IE*/
 .xray-detail-radio-btn:not(:checked) + label:before {
     content: '';
     position: absolute;
-    left: 0;
-    top: 0;
+    left: -20px;
+    top: 20px;
     width: 20px;
     height: 20px;
-    border: 1px solid #ddd;
+    border: 1px solid #00B5E2;
     border-radius: 100%;
     background: transparent;
 }
@@ -124,8 +124,8 @@ filter: fliph; /*IE*/
     height: 12px;
     background: #ed7d31;
     position: absolute;
-    top: 4px;
-    left: 4px;
+    top: 24px;
+    left: -16px;
     border-radius: 100%;
     -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
@@ -136,8 +136,8 @@ filter: fliph; /*IE*/
     height: 12px;
     background: #00B5E2;
     position: absolute;
-    top: 4px;
-    left: 4px;
+    top: 24px;
+    left: -16px;
     border-radius: 100%;
     -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
@@ -152,8 +152,20 @@ filter: fliph; /*IE*/
     -webkit-transform: scale(1);
     transform: scale(1);
 }
-.btm-border{
-    border-bottom: 2px solid #00B5E2;
+
+.btm-border {
+  position: relative;
+}
+
+.btm-border hr {
+    color: white;
+    height: 1px;
+    background: white;
+    position: absolute;
+    width: 100%;
+    top: -3px;
+    background: rgba(29,48,76,1);
+    z-index: -1;
 }
 
 .inputfile {
@@ -184,4 +196,73 @@ filter: fliph; /*IE*/
 }
 .quality-alignment{
   margin: 0 0 0 95px;
+}
+
+.sidebar-toolbar {
+  padding-left: 45px;
+  padding-right: 95px;
+}
+
+.bg > .container-fluid > .row > div {
+  height: calc(100vh - 100px);
+}
+
+.dropdown .btn-success {
+  background: none;
+  border: none;
+  color: #00B5E2;
+  width: 100%;
+}
+
+.btn-success:not(:disabled):not(.disabled).active:focus, .btn-success:not(:disabled):not(.disabled):active:focus, .show>.btn-success.dropdown-toggle:focus {
+  box-shadow: none;
+}
+
+.btn-success:not(:disabled):not(.disabled).active, .btn-success:not(:disabled):not(.disabled):active, .show>.btn-success.dropdown-toggle {
+  background: none;
+  border: none;
+  color: #00B5E2;
+}
+
+.dropdown-menu.show {
+  transform: translate3d(-2px, 36px, 0px) !important;
+  top: 1px;
+  left: 1px;
+}
+
+.NOT-FOR-CLINICAL-USE {
+  position: absolute;
+  color: #bfbfbf;
+  font-size: 40px;
+  background-image: linear-gradient(to right, rgba(19, 19, 19, 0.5) , rgba(135, 135, 135, 0.5), rgba(19, 19, 19, 0.5));
+  bottom: 100px;
+  width: 97.7%;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.btn-secondary {
+  border-radius: 20px;
+  padding: 2px 30px;
+  font-weight: bold;
+  font-size: 14px;
+  float: right;
+  margin-right: 5px;
+  margin-top: 15px;
+}
+
+.btn-secondary:after {
+  clear: both;
+}
+
+.dropdown {
+  height: 100%;
+  background: none;
+  border: 2px solid #00B5E2;
+}
+
+.dropdown.show {
+  background: white;
+  border: none;
 }

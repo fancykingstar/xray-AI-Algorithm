@@ -15,14 +15,14 @@ var messages = require('./inferserver_pb');
 var services = require('./inferserver_grpc_pb');
 var grpc = require('grpc');
 
-var grpc_client_cf = new services.InferChestFrontalClient(config['grpc_bind_address'],grpc.credentials.createInsecure());
-var grpc_client_rot = new services.InferRotationClient(config['grpc_bind_address'],grpc.credentials.createInsecure());
-var grpc_client_lf = new services.InferLungFieldClient(config['grpc_bind_address'],grpc.credentials.createInsecure());
-var grpc_client_ptx = new services.InferPneumothoraxClient(config['grpc_bind_address'],grpc.credentials.createInsecure());
-var grpc_client_freeair = new services.InferFreeAirClient(config['grpc_bind_address'],grpc.credentials.createInsecure());
-var grpc_client_carina = new services.InferCarinaClient(config['grpc_bind_address'],grpc.credentials.createInsecure());
-var grpc_client_ettube = new services.InferETTubeClient(config['grpc_bind_address'],grpc.credentials.createInsecure());
-var grpc_client_ettubetip = new services.InferETTubeTipClient(config['grpc_bind_address'],grpc.credentials.createInsecure());
+var grpc_client_cf = new services.InferChestFrontalClient("localhost:50052",grpc.credentials.createInsecure());
+var grpc_client_rot = new services.InferRotationClient("localhost:50052",grpc.credentials.createInsecure());
+var grpc_client_lf = new services.InferLungFieldClient("localhost:50052",grpc.credentials.createInsecure());
+var grpc_client_ptx = new services.InferPneumothoraxClient("localhost:50052",grpc.credentials.createInsecure());
+var grpc_client_freeair = new services.InferFreeAirClient("localhost:50052",grpc.credentials.createInsecure());
+var grpc_client_carina = new services.InferCarinaClient("localhost:50052",grpc.credentials.createInsecure());
+var grpc_client_ettube = new services.InferETTubeClient("localhost:50052",grpc.credentials.createInsecure());
+var grpc_client_ettubetip = new services.InferETTubeTipClient("localhost:50052",grpc.credentials.createInsecure());
 
 
 var app = express();
@@ -174,6 +174,7 @@ const doInferETTubeTip = async (dcmrequest) => {
 
 // POST: handle form data parsed from client
 app.post('/upload', function(req, res) {
+   console.log("=========================");
    var srcfile = req.files['imageFile'].path;
    var dstfile = path.join(uploaddir , req.files['imageFile'].name);
    fs.rename(srcfile, dstfile, function(err) {

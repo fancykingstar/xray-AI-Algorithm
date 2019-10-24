@@ -18,6 +18,7 @@ RUN pip install opencv-python
 RUN pip install pydicom
 RUN pip install pyyaml
 RUN pip install keras
+RUN pip install matplotlib
 
 COPY ./*.py /app/
 COPY ./config.yml /app/
