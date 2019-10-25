@@ -75,7 +75,7 @@ select.custom-select {
 }
 
 .bg {
-    background: url("../../../assets/image.jpg");
+    /*background: url("../../../assets/image.jpg");*/
     background-size: auto;
     background-position: 0%;
     background-repeat: no-repeat;

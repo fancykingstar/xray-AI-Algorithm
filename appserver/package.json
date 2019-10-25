@@ -49,7 +49,7 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "proxy": "http://localhost:3001",
+  "proxy": "http://51.79.29.24:3000",
   "browserslist": [
     ">0.2%",
     "not dead",

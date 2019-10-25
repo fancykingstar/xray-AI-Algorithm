@@ -1,7 +1,7 @@
 nav {
   	background-color: #041735; /* For browsers that do not support gradients */
   	background-image: linear-gradient(to right, #041735 , #082248); /* Standard syntax (must be last) */
-
+  	max-height: 58px;
 }
 
 nav a span {
@@ -9,6 +9,54 @@ nav a span {
 	margin-left: 10px;
 }
 
-p {
-	font-size: 22px;
+p.x-ray-ai {
+	font-size: 23px;
+	margin-bottom: 0;
+	margin-left: 42px;
+	letter-spacing: 3px;
+	padding-top: 1px;
+}
+
+p.not-available {
+	color: #39b0da;
+	position: absolute;
+	right: 15px;
+	letter-spacing: 2px;
+    font-size: 18px;
+    word-spacing: 1px;
+}
+
+@media screen and (max-width: 1200px) {
+	p.not-available {
+		font-size: 16px;
+	}
+
+	p.x-ray-ai {
+		font-size: 18px;
+		margin-left: 0;
+	}
+}
+
+@media screen and (max-width: 960px) {
+	p.not-available {
+		display: none;
+	}
+
+	p.x-ray-ai {
+		font-size: 23px;
+		margin-left: 20px;
+	}
+}
+
+@media screen and (max-width: 767px) {
+	p.x-ray-ai {
+		margin-left: 0;
+		font-size: 16px;
+	}
+}
+
+@media screen and (max-width: 550px) {
+	p.x-ray-ai {
+		display: none;
+	}
 }

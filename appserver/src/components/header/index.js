@@ -9,17 +9,18 @@ import './index.css';
 class Header extends Component {
   render() {
     return (
-         <Navbar fluid={"true"} variant="dark" style={{backgroundColor: '#666699', color: 'White' }}>
-            <LinkContainer to="/">
-               <Navbar.Brand>
-                     <img alt="" src="/logo-ge.svg" 
-                        width="40" height="40" 
-                        className="d-inline-block align-top" />
-                     <span>{' GE Healthcare'}</span>
-               </Navbar.Brand>
-            </LinkContainer>
-            <p style={{ "marginBottom": 0, "marginLeft": "45px" }}><span style={{ "fontWeight": "bold" }}>X-RAY AL</span> EXPERIENCE</p>
-         </Navbar>
+      <Navbar fluid={"true"} variant="dark" style={{backgroundColor: '#666699', color: 'White' }}>
+        <LinkContainer to="/">
+           <Navbar.Brand>
+                 <img alt="" src="/logo-ge.svg" 
+                    width="41" height="41" 
+                    className="d-inline-block align-top" style={{ "marginLeft": "9px", "marginTop": "-2px" }} />
+                 <span style={{ "fontSize": "23px", "letterSpacing": "0.2px"}}>{' GE Healthcare'}</span>
+           </Navbar.Brand>
+        </LinkContainer>
+        <p className="x-ray-ai"><span style={{ "fontFamily": 'GE Inspira Bold' }}>X-RAY AI</span> EXPERIENCE</p>
+        <p className="not-available">FOR DEMONSTRATION ONLY. NOT AVAILABLE FOR SALE</p>
+      </Navbar>
     );
   }
 }

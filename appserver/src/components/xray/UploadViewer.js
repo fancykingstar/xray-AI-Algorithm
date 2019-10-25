@@ -6,7 +6,6 @@ import debounce from 'lodash.debounce'
 import cornerstone from 'cornerstone-core'
 import cornerstoneTools from 'cornerstone-tools'
 import ReactResizeDetector from 'react-resize-detector'
-import HeatmapToggle from '../HeatmapToggle.js'
 
 
 const Wrapper = styled.div(props => css`
@@ -103,9 +102,6 @@ class UploadViewer extends Component {
    }
 
    render() {
-     console.log(this.props.evem);
-     console.log(this.props.heatmapState);
-     console.log(this.state.imageId);
      return (
           <Wrapper>
             {ReactResizeDetector && (
@@ -119,8 +115,6 @@ class UploadViewer extends Component {
                 onContextMenu={this.onContextMenu}
                 ref={el => {this.element = el}}
              />
-             {this.props.heatmapactive && <HeatmapToggle 
-                heatmapState={this.props.heatmapState} evem={this.props.evem}/>}
           </Wrapper>
       );
    }

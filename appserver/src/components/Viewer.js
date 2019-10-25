@@ -118,10 +118,6 @@ class Viewer extends Component {
    }
 
    render() {
-     console.log(this.props.evem);
-     console.log(this.props.heatmapState);
-     console.log(this.state.imageId);
-     console.log(this.props.heatmapactive);
      return (
           <Wrapper>
             {ReactResizeDetector && (
@@ -137,8 +133,6 @@ class Viewer extends Component {
              />
              <ViewportOverlay viewport={this.state.viewport} imageId={this.state.imageId}>
              </ViewportOverlay>
-             {this.props.heatmapactive && <HeatmapToggle 
-                heatmapState={this.props.heatmapState} evem={this.props.evem}/>}
           </Wrapper>
       );
    }

@@ -30,7 +30,7 @@ export const uploadImageFile = ({file, onProgress}) => {
     req.responseType = 'json'
     req.json = true
     var formData = new FormData();
-    formData.append('imageFile',file);
+    formData.append('imageFile', file);
     req.send(formData)
   })
 }
@@ -45,6 +45,7 @@ export const requestPredict = ({pipeline, uploadId}) => {
       axios.post(requestUrl, predictData)
          .then( function(res) {
             resolve(res.data);
+            console.log(res.data);
          })
          .catch( function(err) {
             console.log(err.message);
