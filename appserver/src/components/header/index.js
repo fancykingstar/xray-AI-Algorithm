@@ -9,7 +9,7 @@ import './index.css';
 class Header extends Component {
   render() {
     return (
-      <Navbar fluid={"true"} variant="dark" style={{backgroundColor: '#666699', color: 'White' }}>
+      <Navbar fluid={"true"} variant="dark" style={{backgroundColor: '#666699', color: 'White', position: 'relative' }}>
         <LinkContainer to="/">
            <Navbar.Brand>
                  <img alt="" src="/logo-ge.svg" 
@@ -20,6 +20,9 @@ class Header extends Component {
         </LinkContainer>
         <p className="x-ray-ai"><span style={{ "fontFamily": 'GE Inspira Bold' }}>X-RAY AI</span> EXPERIENCE</p>
         <p className="not-available">FOR DEMONSTRATION ONLY. NOT AVAILABLE FOR SALE</p>
+        <div style={{ position: "absolute", right: "5px" }}>
+          <a className="logout" href="/"><img src={require("../../assets/close-icon.svg")} style={{ width: '35px'}} /></a>
+        </div>
       </Navbar>
     );
   }

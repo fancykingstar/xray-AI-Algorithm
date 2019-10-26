@@ -34,6 +34,16 @@ class HeatmapToggle extends Component {
              handlestyle="warning"
              height={"35px"}
           />
+          <Toggle
+             style={ { width: "100%", marginTop: "8px", borderRadius: '30px' } }
+             on={<div style={{ flex: "1 1", fontSize: "14px"}}>GREYSCALE ON</div>}
+             off={<div style={{ flex: "1 1", fontSize: "14px"}} >GREYSCALE Off</div>}
+             onstyle="tgon"
+             offstyle="tgon"
+             size="small"
+             handlestyle="warning"
+             height={"35px"}
+          />
        </div>
     )
   }

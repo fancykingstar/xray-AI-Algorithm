@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Card, Badge, Row, Col, Container, Dropdown } from 'react-bootstrap';
 import Upload from './upload';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { Sidebar, Panel, PanelTitle} from './sidebar';
 import AppDropZone from './AppDropZone';
 import EE from './ee';
@@ -15,7 +16,7 @@ import "../loadimage.js";
 import cornerstoneWADOImageLoader from 'cornerstone-wado-image-loader';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
-import { uploadImageFile, requestPredict, downloadHeatmap, AUTH_REQUIRED } from '../api';
+import { uploadImageFile, requestPredict, AUTH_REQUIRED } from '../api';
 import DownloadPdf from '../download-pdf-report/download-pdf-report.js';
 import "./xray.css";
 import "../aiapp.css";
@@ -69,6 +70,21 @@ class XrayDetails extends Component {
   }
 
   componentWillMount() {}
+
+  downloadPDF = () => {
+    localStorage.setItem("rotation", this.state.rotate);
+    localStorage.setItem("chestfrontal", this.state.chestfrontal);
+    localStorage.setItem("lungfield", this.state.lungfield);
+    localStorage.setItem("ptx", this.state.ptx);
+
+    localStorage.setItem('imageid', this.state.imageId);
+    localStorage.setItem('heatmapactive', this.state.heatmapactive);
+    var heatmapState = this.state.imageId === this.state.heatmapId
+    localStorage.setItem('heatmapState', heatmapState);
+
+    console.log(this.props.history.push('/download-pdf'));
+  }
+
   fileChangedHandler = event => {
     this.setState({
       selectedFile: event.target.files[0],
@@ -178,6 +194,8 @@ class XrayDetails extends Component {
 
     if (!this.state.pneumothorox) this.setState({showButton: true, pipeline: 'ptx'});
     else this.setState({showButton: false, pipeline: ''});
+
+    this.setState({start: false});
   };
 
   resetRadio = () =>{
@@ -258,7 +276,7 @@ class XrayDetails extends Component {
          pipeline: this.state.pipeline,
          uploadId: uploadStatus.uploadID
       });
-      console.log(predictStatus);
+
       if (this.state.pipeline === 'rotation') 
         this.setState({rotate: predictStatus[0].score, start: true});
 
@@ -269,7 +287,12 @@ class XrayDetails extends Component {
         this.setState({lungfield: predictStatus[1].score, start: true});
 
       else if (this.state.pipeline === 'ptx') {
-        this.setState({chestfrontal: predictStatus[0].score, start: true, lungfield: predictStatus[1].score, ptx: predictStatus[2].score});
+        const rotate = await requestPredict({
+           pipeline: "rotation",
+           uploadId: uploadStatus.uploadID
+        });
+
+        this.setState({chestfrontal: predictStatus[0].score, start: true, lungfield: predictStatus[1].score, ptx: predictStatus[2].score, rotate: rotate[0].score});
       }
 
       var heatmapid = null;
@@ -300,6 +323,13 @@ class XrayDetails extends Component {
       this.render()
    }
 
+    entering = (e) => {
+      e.children[0].style.borderTopColor = '#f6f8fa';
+      e.children[1].style.backgroundColor = '#f6f8fa';
+
+      e.children[1].style.color = "black";
+    }
+
    renderPrediction = () => {
       var cardlist =  Object.values(this.state.predictStatus).map( (value, i) => {
                if( value.inferStatus === "SUCCESS" ) { 
@@ -329,16 +359,13 @@ class XrayDetails extends Component {
    }
 
   startInerecing = () => {
+
     this.setState(() => {
        return {
           heatmapId:null, heatmapactive:false, 
-          image_loaded: false, inferencing: true}
+          image_loaded: false, inferencing: true, start: true}
     });
     this.predictionHandler(this.state.uploadStatus);
-  }
-
-  downloadPDF = () => {
-    console.log(this.props.history.push('/download-pdf'));
   }
 
   render() {
@@ -395,30 +422,35 @@ class XrayDetails extends Component {
             </Row>
           </Container>
         </EE.Provider>
+        <div style={{position: 'absolute', right: '50px', bottom: 0}}>
+          <img src={require("../../assets/edison-logo.png")} style={{ width: '120px' }} />
+        </div>
         <div
           className={
             "right-panel m-2 " +
             (this.state.openRightPanel ? "opened" : "closed")
           }
+          style={{ height: '100%' }}
         >
-          <div className="">
+          <div style={{height: '100%'}}>
             {/* side image */}
-            <div className="arrow-bar" style={{ margin: "inherit", marginTop: 130, marginLeft: -37, float: "left", alighItems: "center" }}>
+            <div className="arrow-bar" style={{ position: 'absolute', transform: 'translate(-25px, 200px)', zIndex: 999 }}>
               <img
                 alt="menu arrow icon"
                 src={require("../../assets/menu-arrow.png")}
                 onClick={this.rightPanelState}
+                style={{ height: '400px' }}
                 className={
                   "img-fluid " +
                   (this.state.openRightPanel ? "" : "open-menu-arrow")
                 }
               />
-             {  !this.state.openRightPanel && <h1 style={{ transform: "rotate(90deg) translate(-334px, 37px)", fontSize: 30, letterSpacing: 5 }}> AI ALGORITHMS</h1>}
+             {  !this.state.openRightPanel && <h1 style={{ transform: "rotate(90deg) translate(-215px, 50px)", fontSize: 22, letterSpacing: 5 }}> AI ALGORITHMS</h1>}
             </div>
             {/* ends */}
-          <div className="row">
+          <div className="row" style={{ "height": "calc(100% - 24px)" }}>
             <div className="col-lg-6">
-              <div className="row" style={{ marginLeft: 10 }}>
+              <div className="row" style={{ marginLeft: 35 }}>
                 <img
                   alt="arrow icon"
                   src={require("../../assets/arrow-icon.svg")}
@@ -428,103 +460,105 @@ class XrayDetails extends Component {
 
                 <h5 className="mt-2" style={{ fontSize: 18, color: 'white', fontFamily: 'GE Inspira Bold', letterSpacing: 2 }}> AI ALGORITHMS </h5>
               </div>
+              <div style={{ position: 'relative', height: '100%', borderRight: '1px solid rgba(29,48,76,1)', marginRight: '20px' }}>
+                <div className="m-5 text-center right-panel-right">
+                  <div
+                    className="d-flex m-0 justify-content-center align-items-center image-section"
+                    style={{
+                      backgroundColor: "black",
+                      alignSelf: "center"
+                    }}
+                  >
+                    <EE.Provider value={this.ee}>
+                      <EE.Consumer>
+                         {(val) => <UploadViewer imageid={this.state.imageId} 
+                            evem={val} heatmapactive={this.state.heatmapactive} heatmapState={this.state.imageId === this.state.heatmapId}/>}
+                      </EE.Consumer>
+                    </EE.Provider>
+                  </div>
+                  <Dropzone accept=".dcm,.png,.jpg"
+                    onDrop={this.anDropFunc}>
+                   {({ getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject, acceptedFiles, rejectedFiles }) => {
 
-              <div className="m-5 text-center right-panel-right">
-                <div
-                  className="d-flex m-0 justify-content-center align-items-center image-section"
-                  style={{
-                    backgroundColor: "black",
-                    alignSelf: "center"
-                  }}
-                >
-                  <EE.Provider value={this.ee}>
-                    <EE.Consumer>
-                       {(val) => <UploadViewer imageid={this.state.imageId} 
-                          evem={val} heatmapactive={this.state.heatmapactive} heatmapState={this.state.imageId === this.state.heatmapId}/>}
-                    </EE.Consumer>
-                  </EE.Provider>
-                </div>
-                <Dropzone accept=".dcm,.png,.jpg"
-                  onDrop={this.anDropFunc}>
-                 {({ getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject, acceptedFiles, rejectedFiles }) => {
-
-                   return (
-                     <div
-                       {...getRootProps()}
-                     >
-                       <input {...getInputProps()} />
+                     return (
                        <div
-                          className="mt-3"
-                          style={{
-                            height: 40,
-                            marginTop: 20,
-                            border: "2px dotted #00B5E2"
-                          }}
-                        >
-                          <div className="d-flex justify-content-center align-items-center" style={{ paddingTop: 4 }}>
-                            <input
-                              type="file"
-                              onChange={this.fileChangedHandler}
-                              name="file"
-                              id="file"
-                              className="inputfile"
-                            />
-                            <label htmlFor="file text-bold" style={{ marginBottom: 0, marginRight: 10 }}>INPUT NEW IMAGE</label>
-                            <img
-                              alt="plus icon"
-                              src={require("../../assets/add-icon.svg")}
-                              width="20px"
-                              height="20px"
-                            />
+                         {...getRootProps()}
+                       >
+                         <input {...getInputProps()} />
+                         <div
+                            className="mt-3"
+                            style={{
+                              height: 40,
+                              marginTop: 20,
+                              border: "2px dotted #00B5E2", borderRadius: "5px"
+                            }}
+                          >
+                            <div className="d-flex justify-content-center align-items-center" style={{ paddingTop: 4 }}>
+                              <input
+                                type="file"
+                                onChange={this.fileChangedHandler}
+                                name="file"
+                                id="file"
+                                className="inputfile"
+                              />
+                              <label htmlFor="file text-bold" style={{ marginBottom: 0, marginRight: 10 }}>INPUT NEW IMAGE</label>
+                              <img
+                                alt="plus icon"
+                                src={require("../../assets/add-icon.svg")}
+                                width="20px"
+                                height="20px"
+                              />
+                            </div>
                           </div>
-                        </div>
-                     </div>
-                   )
-                 }}
-               </Dropzone>
-                <div
-                  className="mt-3"
-                  style={{
-                    height: 40,
-                    alignSelf: "center",
-                    color:"#00B5E2",
-                    textAlign:"center"
-                  }}
-                  id="dropdownBox"
-                >
-                  <Dropdown>
-                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                      DEMO IMAGES
-                    </Dropdown.Toggle>
+                       </div>
+                     )
+                   }}
+                 </Dropzone>
+                  <div
+                    className="mt-3"
+                    style={{
+                      height: 40,
+                      alignSelf: "center",
+                      color:"#00B5E2",
+                      textAlign:"center"
+                    }}
+                    id="dropdownBox"
+                  >
+                    <Dropdown>
+                      <Dropdown.Toggle variant="success" id="dropdown-basic">
+                        DEMO IMAGES
+                      </Dropdown.Toggle>
 
-                    <Dropdown.Menu drop="down">
-                      {this.state.testImages.map((image, index) => {
-                        return <Dropdown.Item key={index} onClick={() => this.reinit(image)}>{image.name}</Dropdown.Item>
-                      })}
-                    </Dropdown.Menu>
-                  </Dropdown>
+                      <Dropdown.Menu drop="down">
+                        {this.state.testImages.map((image, index) => {
+                          return <Dropdown.Item key={index} onClick={() => this.reinit(image)}>{image.name}</Dropdown.Item>
+                        })}
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  </div>
+
                 </div>
 
-                <hr style={{ color:"#00B5E2"}} />
-               {this.state.showButton &&  <button
-                  className="mt-2 orange-btn-style small"
-                  type="button" onClick={this.startInerecing}
-                >
-                  Start <br /> Inferencing
-                </button>
-              }
-              {
-                this.state.start && (this.state.chestfrontal !== '' || this.state.rotation !== '' || this.state.lungfield !== '') ?
-                <div><button
-                  className="mt-2 orange-btn-style small"
-                  type="button" onClick={this.downloadPDF}
-                  style={{ background: "none", border: '1px solid #ed7d31'}}
-                >DOWNLOAD <br />AI REPORT</button></div> : ""
-              }
+                 {this.state.showButton &&  <div className="start-button first"><button
+                    className="mt-2 orange-btn-style small start-button"
+                    type="button" onClick={this.startInerecing}
+                  >
+                    START <br /> INFERENCING
+                  </button></div>
+                }
+                {
+                  this.state.start && (this.state.chestfrontal !== '' || this.state.rotation !== '' || this.state.lungfield !== '') ?
+                  <div className="start-button"><button
+                    className="mt-2 orange-btn-style small"
+                    type="button" onClick={this.downloadPDF}
+                    style={{ background: "none", border: '1px solid #ed7d31'}}
+                  >DOWNLOAD <br />AI REPORT</button></div> : ""
+                }
+
               </div>
             </div>
             {/* first section end */}
-             <div className={"col-lg-5" + (this.state.openRightPanel ? "" : "quality-alignment")} style={{ marginBottom: 50}}>
+             <div id="rightAlgorithm" className={"col-lg-5" + (this.state.openRightPanel ? "" : "quality-alignment")} style={{ marginBottom: 50}}>
               <h5 className="mt-3" style={{ fontSize: 18, color: 'white', fontFamily: 'GE Inspira Bold', letterSpacing: 2 }}>QUALITY CARE SUITE</h5>
               <div>
                 <div className="btm-border text-left small">
@@ -543,10 +577,21 @@ class XrayDetails extends Component {
                     className="xray-detail-radio-btn"
                     onClick={this.autoRotate}
                   />
-                  <label htmlFor="test1">CHEST: AUTO ROTATE
-                  </label>
+                  <OverlayTrigger
+                    key='right'
+                    placement='bottom'
+                    overlay={
+                      <Tooltip id={`tooltip-right`}>
+                        CHEST: AUTO ROTATE
+                      </Tooltip>
+                    }
+                    onEntering={this.entering}
+                  >
+                    <label htmlFor="test1">CHEST: AUTO ROTATE
+                    </label>
+                  </OverlayTrigger>
                   {
-                    this.state.start && this.state.pipeline === 'rotataion' && this.state.rotate === '' ?
+                    this.state.start && (this.state.pipeline === 'rotataion' || this.state.pipeline === 'ptx') && this.state.rotate === '' ?
                       <div style={{ textAligh: 'right'}}>
                         <img
                             alt="arrow icon"
@@ -583,9 +628,20 @@ class XrayDetails extends Component {
                     className="xray-detail-radio-btn"
                     onClick={this.colHeck}
                   />
-                  <label htmlFor="test2">CHEST: PROTOCOL CHECK</label>
+                  <OverlayTrigger
+                    key='right'
+                    placement='bottom'
+                    overlay={
+                      <Tooltip id={`tooltip-right`}>
+                        CHEST: PROTOCOL CHECK
+                      </Tooltip>
+                    }
+                    onEntering={this.entering}
+                  >
+                    <label htmlFor="test2">CHEST: PROTOCOL CHECK</label>
+                  </OverlayTrigger>
                   {
-                    this.state.start && this.state.pipeline === 'chestfrontal' && this.state.chestfrontal === '' ?
+                    this.state.start && (this.state.pipeline === 'chestfrontal' || this.state.pipeline === 'ptx') && this.state.chestfrontal === '' ?
                       <div style={{ textAligh: 'right'}}>
                         <img
                             alt="arrow icon"
@@ -622,9 +678,20 @@ class XrayDetails extends Component {
                     className="xray-detail-radio-btn"
                     onClick={this.viewCheck}
                   />
-                  <label htmlFor="test3">CHEST: FIELD OF VIEW CHECK</label>
+                  <OverlayTrigger
+                    key='right'
+                    placement='bottom'
+                    overlay={
+                      <Tooltip id={`tooltip-right`}>
+                        CHEST: FIELD OF VIEW CHECK
+                      </Tooltip>
+                    }
+                    onEntering={this.entering}
+                  >
+                    <label htmlFor="test3">CHEST: FIELD OF VIEW CHECK</label>
+                  </OverlayTrigger>
                   {
-                    this.state.start && this.state.pipeline === 'lungfield' && this.state.lungfield === '' ?
+                    this.state.start && (this.state.pipeline === 'lungfield' || this.state.pipeline === 'ptx') && this.state.lungfield === '' ?
                       <div style={{ textAligh: 'right'}}>
                         <img
                             alt="arrow icon"
@@ -660,8 +727,19 @@ class XrayDetails extends Component {
                   className="xray-detail-radio-btn"
                   onClick={this.onPneumothoroxChecked}
                 />
-                <label htmlFor="test4">PNEUMOTHOROX</label>
-                {
+                <OverlayTrigger
+                    key='right'
+                    placement='bottom'
+                    overlay={
+                      <Tooltip id={`tooltip-right`}>
+                        PNEUMOTHOROX
+                      </Tooltip>
+                    }
+                    onEntering={this.entering}
+                  >
+                    <label htmlFor="test4">PNEUMOTHOROX</label>
+                  </OverlayTrigger>
+                  {
                     this.state.start && this.state.pipeline === 'ptx' && this.state.ptx === '' ?
                       <div style={{ textAligh: 'right'}}>
                         <img

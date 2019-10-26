@@ -5,7 +5,7 @@
 }
 
 .bg {
-  height: 100vh;
+  height: 100%;
   background-size: auto;
   background-position: top;
   background-repeat: no-repeat;
@@ -13,7 +13,7 @@
 }
 
 .right-panel {
-  background:linear-gradient(rgba(19,41,75,.9));
+  background:linear-gradient(rgba(19,41,75,.7));
   background: -webkit-gradient(linear, left top, left bottom, from(rgba(19,41,75,.9)));
   position: absolute;
   top: 50px;
@@ -60,7 +60,7 @@
     transform: translateX(0%);
   }
   100% {
-    transform: translateX(100%);
+    transform: translateX(105%);
   }
 }
 
@@ -69,7 +69,7 @@
     -webkit-transform: translateX(0%);
   }
   100% {
-    -webkit-transform: translateX(100%);
+    -webkit-transform: translateX(105%);
   }
 }
 
@@ -243,7 +243,7 @@ label {
 }
 
 .dropdown .btn-success:after {
-  margin-left: 30px;
+  /*margin-left: 30px;*/
 }
 
 .btn-success:not(:disabled):not(.disabled).active:focus, .btn-success:not(:disabled):not(.disabled):active:focus, .show>.btn-success.dropdown-toggle:focus {
@@ -292,6 +292,7 @@ label {
   height: 100%;
   background: none;
   border: 2px solid #00B5E2;
+  border-radius: 5px;
 }
 
 .dropdown.show {
@@ -313,13 +314,13 @@ label {
 
 .right-panel-right.m-5 {
   padding-left: 20px;
-  padding-right: 70px;
-  margin-right: 50px;
   margin-left: 0 !important;
-  margin-top: 0 !important;
+  margin-top: 10px !important;
   margin-bottom: 0 !important;
-  padding-top: 50px;
-  padding-bottom: 50px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  margin-right: 0 !important;
+  padding-right: 50px;
 }
 
 .result {
@@ -343,6 +344,32 @@ label {
   padding-top: 5px;
 }
 
+.right-panel-right {
+  border-top: 1px solid rgba(29,48,76,1);
+  border-bottom: 1px solid rgba(29,48,76,1);
+  padding-left: 50px !important;
+}
+
+.start-button {
+  text-align: center;
+  font-family: 'GE Inspira Bold';
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+.start-button.first {
+  margin-top: 20px;
+}
+
+.start-button {
+  padding-right: 50px;
+  padding-left: 50px;
+}
+
+#rightAlgorithm {
+    padding-left: 30px;
+  }
+
 @media screen and (min-width: 992px) {
   .col-lg-2 {
     max-width: 210px;
@@ -353,13 +380,13 @@ label {
 
 @media screen and (max-width: 1450px) {
   .right-panel-right.m-5 {
-    padding-right: 0;
+    padding-right: 30px;
   }
 }
 
 @media screen and (max-width: 1200px) {
   .right-panel-right.m-5 {
-    margin-right: 20px !important;
+    margin-right: 0 !important;
   }
 
   .right-panel-right.m-5 label, .right-panel-right.m-5 button {
@@ -368,6 +395,11 @@ label {
 }
 
 @media screen and (max-width: 991px) {
+  #rightAlgorithm {
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+
   .right-panel {
     width: 90vw;
   }
