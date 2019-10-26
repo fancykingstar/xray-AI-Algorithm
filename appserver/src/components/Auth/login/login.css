@@ -5,15 +5,12 @@ body {
   background: cover;
   background-repeat: no-repeat;
   /* background-color: rgb(0,181, 226) */
-  font-family: 'GE Inspira' !important;
 }
 .inp {
   background-color: transparent;
+  color: antiquewhite;
   border-radius: 35px;
-  border:solid 2px  #00b5e2;
-  padding-left: 20px;
-  width: 100%;
-  color: #00b5e2;
+  border-color: #00b5e2;
 }
 .txt {
   color: rgb(0, 181, 226);
@@ -29,8 +26,10 @@ h1,
 h3,
 h5 {
   color: azure;
+  font-family: sans-serif;
+
 }
-.outer {
+.container {
   height: 100vh;
 }
 .border-right {
@@ -46,6 +45,10 @@ h5 {
 .tst {
   height: inherit;
 }
+.btn {
+  border-radius: 35px;
+  padding: 5px 30px;
+}
 .right-section {
   padding: 0 0 0 60px;
   margin-bottom: auto
@@ -56,31 +59,20 @@ h5 {
 .headline {
   font-size: 60px;
   font-weight: bold;
-  letter-spacing: 0.1em;
-  overflow-wrap: break-word;
+  /* letter-spacing: 10px; */
 }
 .sub-headline {
-  font-size: 60px;
-  line-height: 4rem;
-  letter-spacing: 0.2em;
-  overflow-wrap: break-word;
+  font-size: 50px;
+  /* line-height: 4rem; */
 }
-.logo-container {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+.logo-container{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
-.logo-heading {
-  font-size: 22px;
-  font-weight: bold;
+.logo-heading{
+    font-size: 30px;
 }
-.btn-style{
-  padding: 5px 40px;
-  background-color: rgb(0, 181, 226);
-  color: #fff;
-  border-radius: 35px;
-  border: none;
-}
-.btn-style:hover{
-  opacity: 0.8;
+.btn-txt{
+  font-size: xx-small;
 }
