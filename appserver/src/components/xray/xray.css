@@ -5,7 +5,7 @@
 }
 
 .bg {
-<<<<<<< HEAD
+/*<<<<<<< HEAD*/
   height: 100%;
   background-size: auto;
   background-position: top;
@@ -95,12 +95,11 @@ transform: scaleX(-1);
 filter: fliph; /*IE*/
 }
 
-  [type="radio"]:checked,
-[type="radio"]:not(:checked) {
+[type="checkbox"]:checked,
+[type="checkbox"]:not(:checked) {
     position: absolute;
     left: -9999px;
 }
-/*<<<<<<< HEAD*/
 
 label {
   font-family: "GE Inspira Bold";
@@ -116,10 +115,6 @@ label {
   color: #ed7d31;
 }
 .xray-detail-radio-btn:not(:checked) + label
-/*=======
-[type="radio"]:checked + label,
-[type="radio"]:not(:checked) + label
->>>>>>> master*/
 {
     position: relative;
     padding-left: 28px;
@@ -128,7 +123,6 @@ label {
     display: inline-block;
     color: #00B5E2;
 }
-/*<<<<<<< HEAD*/
 .xray-detail-radio-btn:checked + label:before{
   content: '';
   position: absolute;
@@ -141,10 +135,6 @@ label {
   background: transparent;
 }
 .xray-detail-radio-btn:not(:checked) + label:before {
-/*=======
-[type="radio"]:checked + label:before,
-[type="radio"]:not(:checked) + label:before {
->>>>>>> master*/
     content: '';
     position: absolute;
     left: -30px;
@@ -155,7 +145,6 @@ label {
     border-radius: 100%;
     background: transparent;
 }
-/*<<<<<<< HEAD*/
 .xray-detail-radio-btn:checked + label:after{
   content: '';
     width: 12px;
@@ -169,10 +158,6 @@ label {
     transition: all 0.2s ease;
 }
 .xray-detail-radio-btn:not(:checked) + label:after {
-/*=======
-[type="radio"]:checked + label:after,
-[type="radio"]:not(:checked) + label:after {
->>>>>>> master*/
     content: '';
     width: 12px;
     height: 12px;
@@ -184,12 +169,13 @@ label {
     -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
 }
-[type="radio"]:not(:checked) + label:after {
+
+[type="checkbox"]:not(:checked) + label:after {
     opacity: 0;
     -webkit-transform: scale(0);
     transform: scale(0);
 }
-[type="radio"]:checked + label:after {
+[type="checkbox"]:checked + label:after {
     opacity: 1;
     -webkit-transform: scale(1);
     transform: scale(1);
@@ -212,7 +198,7 @@ label {
     background: #3f4f66;
     z-index: -1;
 }
-<<<<<<< HEAD
+/*<<<<<<< HEAD*/
 
 .inputfile {
 	width: 0.3px;
@@ -441,7 +427,7 @@ label {
   }
 
   .right-panel-right.m-5 label, .right-panel-right.m-5 button {
-    font-size: 16px;
+    font-size: 16 px;
   }
 }
 
