@@ -50,7 +50,10 @@ class XrayDetails extends Component {
       authenticated: false,
 
       testImages: [
+
       ],
+
+      test: "",
 
       dropdownStatus: false,
       uploadStatus: '',
@@ -58,7 +61,9 @@ class XrayDetails extends Component {
       rotate: '',
       chestfrontal: '',
       lungfield: '',
-      ptx: ''
+      ptx: '', 
+      status: false,
+      dropzoneStatus: false,
     };
 
     this.resize = this.resize.bind(this);
@@ -82,7 +87,7 @@ class XrayDetails extends Component {
     var heatmapState = this.state.imageId === this.state.heatmapId
     localStorage.setItem('heatmapState', heatmapState);
 
-    console.log(this.props.history.push('/download-pdf'));
+    this.props.history.push('/download-pdf');
   }
 
   fileChangedHandler = event => {
@@ -106,96 +111,104 @@ class XrayDetails extends Component {
     this.setState({ openRightPanel: !this.state.openRightPanel });
   };
   autoRotate = () => {
-    if (this.state.pneumothorox) {
-      this.setState({
-        viewCheck: false,
-        colHeck: false,
-        pneumothorox: false,
-        pipeline: 'rotation',
-      });
+    if (this.state.status) {
+      if (this.state.pneumothorox) {
+        this.setState({
+          viewCheck: false,
+          colHeck: false,
+          pneumothorox: false,
+          pipeline: 'rotation',
+        });
 
-      if (this.state.autoRotate) this.setState({showButton: true, pipeline: 'rotation'});
-      else this.setState({showButton: false});
-    }
-    else {
-      this.setState({
-        autoRotate: !this.state.autoRotate,
-        viewCheck: false,
-        colHeck: false,
-        pneumothorox: false,
-      });
-      if (!this.state.autoRotate) {
-        this.setState({showButton: true, pipeline: 'rotation'});
+        if (this.state.autoRotate) this.setState({showButton: true, pipeline: 'rotation'});
+        else this.setState({showButton: false});
       }
-      else this.setState({showButton: false, pipeline: ''});
-    }
+      else {
+        this.setState({
+          autoRotate: !this.state.autoRotate,
+          viewCheck: false,
+          colHeck: false,
+          pneumothorox: false,
+        });
+        if (!this.state.autoRotate) {
+          this.setState({showButton: true, pipeline: 'rotation'});
+        }
+        else this.setState({showButton: false, pipeline: ''});
+      }
 
-    this.setState({start: false});
+      this.setState({start: false});
+    }
   };
   colHeck = () => {
-    if (this.state.pneumothorox) {
-      this.setState({
-        autoRotate: false,
-        viewCheck: false,
-        pneumothorox: false,
-        pipeline: 'chestfrontal',
-      });
+    if (this.state.status) {
+      if (this.state.pneumothorox) {
+        this.setState({
+          autoRotate: false,
+          viewCheck: false,
+          pneumothorox: false,
+          pipeline: 'chestfrontal',
+        });
 
-      if (this.state.colHeck) this.setState({showButton: true, pipeline: 'chestfrontal'});
-      else this.setState({showButton: false});
+        if (this.state.colHeck) this.setState({showButton: true, pipeline: 'chestfrontal'});
+        else this.setState({showButton: false});
+      }
+      else {
+        this.setState({
+          colHeck:!this.state.colHeck,
+          autoRotate: false,
+          viewCheck: false,
+          pneumothorox: false,
+        });
+
+        if (!this.state.colHeck) this.setState({showButton: true, pipeline: 'chestfrontal'});
+        else this.setState({showButton: false, pipline: ''});
+      }
+
+      this.setState({start: false});
     }
-    else {
-      this.setState({
-        colHeck:!this.state.colHeck,
-        autoRotate: false,
-        viewCheck: false,
-        pneumothorox: false,
-      });
-
-      if (!this.state.colHeck) this.setState({showButton: true, pipeline: 'chestfrontal'});
-      else this.setState({showButton: false, pipline: ''});
-    }
-
-    this.setState({start: false});
   };
 
   viewCheck = () => {
-    if (this.state.pneumothorox) {
-      this.setState({
-        autoRotate: false,
-        colHeck: false,
-        pneumothorox: false,   
-      });
+    if (this.state.status) {
+      if (this.state.pneumothorox) {
+        this.setState({
+          autoRotate: false,
+          colHeck: false,
+          pneumothorox: false,   
+        });
 
-      if (this.state.viewCheck) this.setState({showButton: true, pipeline: 'lungfield'});
-      else this.setState({showButton: false});
-    } else {
-      this.setState({
-        viewCheck: !this.state.viewCheck,
-        autoRotate: false,
-        colHeck: false,
-        pneumothorox: false,
-      });
+        if (this.state.viewCheck) this.setState({showButton: true, pipeline: 'lungfield'});
+        else this.setState({showButton: false});
+      } else {
+        this.setState({
+          viewCheck: !this.state.viewCheck,
+          autoRotate: false,
+          colHeck: false,
+          pneumothorox: false,
+        });
 
-      if (!this.state.viewCheck) this.setState({showButton: true, pipeline: 'lungfield'});
-      else this.setState({showButton: false, pipeline: ''});
+        if (!this.state.viewCheck) this.setState({showButton: true, pipeline: 'lungfield'});
+        else this.setState({showButton: false, pipeline: ''});
+      }
+
+      this.setState({start: false});
     }
-
-    this.setState({start: false});
   };
 
   onPneumothoroxChecked = e => {
-    this.setState({
-      pneumothorox: !this.state.pneumothorox,
-      autoRotate: !this.state.pneumothorox,
-      viewCheck: !this.state.pneumothorox,
-      colHeck: !this.state.pneumothorox,
-    });
+    if (this.state.status) {
+      this.setState({
+        pneumothorox: !this.state.pneumothorox,
+        autoRotate: !this.state.pneumothorox,
+        viewCheck: !this.state.pneumothorox,
+        colHeck: !this.state.pneumothorox,
+      });
 
-    if (!this.state.pneumothorox) this.setState({showButton: true, pipeline: 'ptx'});
-    else this.setState({showButton: false, pipeline: ''});
+      if (!this.state.pneumothorox) this.setState({showButton: true, pipeline: 'ptx'});
+      else this.setState({showButton: false, pipeline: ''});
 
-    this.setState({start: false});
+      this.setState({start: false});
+    }
   };
 
   resetRadio = () =>{
@@ -209,6 +222,7 @@ class XrayDetails extends Component {
   }
 
   anDropFunc = (accepted, rejected) => {
+      this.setState({dropzoneStatus: true});
       if( accepted[0] ) { 
          if( accepted[0].type === "image/jpeg" ||
             accepted[0].type === "image/png" ) {
@@ -253,7 +267,7 @@ class XrayDetails extends Component {
             heatmapId:null, heatmapactive:false, 
             image_loaded: false, inferencing: true}
       });
-      this.setState({uploadStatus: uploadStatus})
+      this.setState({uploadStatus: uploadStatus, status: true})
    }
 
    dcmfilehandler = async (dcmfile) => {
@@ -267,7 +281,7 @@ class XrayDetails extends Component {
          file: dcmfile,
          onProgress: this.onProgress
       });
-      this.setState({uploadStatus: uploadStatus})
+      this.setState({uploadStatus: uploadStatus, status: true})
    }
 
    predictionHandler = async (uploadStatus) => {
@@ -369,59 +383,72 @@ class XrayDetails extends Component {
   }
 
   render() {
+    console.log("=================");
+    console.log(this.state.image_loaded);
     return (
       <div className="bg">
         <Header />
-        <EE.Provider value={this.ee}>
-          <Container fluid={"true"} style={ { paddingLeft: 0, paddingRight: 0 } }>
-            <Row style={{ marginLeft: 0, marginRight: 0 }}>
-              <Col lg={2} style={{ paddingLeft: 0, paddingRight: 0 }}>
-                <div className='sidebar-toolbar'>
-                  <Panel>
-                    <PanelTitle>
-                      <img
-                        alt="arrow icon"
-                        src={require("../../assets/arrow-icon.svg")}
-                        width="30"
-                        height="40"
-                        style={{ "marginTop": "-3px" }}
-                      />
-                      <span>CONTROLS</span>
-                    </PanelTitle>
-                    <EE.Consumer>
-                       {(val) => <Toolbar evem={val} />}
-                    </EE.Consumer>
-                 </Panel>
+        {
+          this.state.status ?
+            <EE.Provider value={this.ee}>
+              <Container fluid={"true"} style={ { paddingLeft: 0, paddingRight: 0 } }>
+                <Row style={{ marginLeft: 0, marginRight: 0 }}>
+                  <Col lg={2} style={{ paddingLeft: 0, paddingRight: 0 }}>
+                    <div className='sidebar-toolbar'>
+                      <Panel>
+                        <PanelTitle>
+                          <img
+                            alt="arrow icon"
+                            src={require("../../assets/arrow-icon.svg")}
+                            width="30"
+                            height="40"
+                            style={{ "marginTop": "-3px" }}
+                          />
+                          <span>CONTROLS</span>
+                        </PanelTitle>
+                        <EE.Consumer>
+                           {(val) => <Toolbar evem={val} />}
+                        </EE.Consumer>
+                     </Panel>
 
-                 <Panel>
-                    <PanelTitle>
-                      <img
-                        alt="arrow icon"
-                        src={require("../../assets/arrow-icon.svg")}
-                        width="30"
-                        height="40"
-                        style={{ "marginTop": "-3px" }}
-                      />
-                      <span>HEATMAP*</span>
-                    </PanelTitle>
-                    <EE.Consumer>
-                       {(val) => <ToolbarHeatMap evem={val} heatmapactive={this.state.heatmapactive} heatmapState={this.state.imageId === this.state.heatmapId} />}
-                    </EE.Consumer>
-                 </Panel>
-                </div>
-              </Col>
-              <Col lg={9} style={{ paddingLeft: 0, paddingRight: 0 }} style={{ position: "relative" }}>
-                  <EE.Consumer>
-                     {(val) => <Viewer imageid={this.state.imageId} 
-                        evem={val} heatmapactive={this.state.heatmapactive} heatmapState={this.state.imageId === this.state.heatmapId}/>}
-                  </EE.Consumer>
-                  <div className="NOT-FOR-CLINICAL-USE">
-                    NOT FOR CLINICAL USE
-                  </div>
-              </Col>
-            </Row>
-          </Container>
-        </EE.Provider>
+                     <Panel>
+                        <PanelTitle>
+                          <img
+                            alt="arrow icon"
+                            src={require("../../assets/arrow-icon.svg")}
+                            width="30"
+                            height="40"
+                            style={{ "marginTop": "-3px" }}
+                          />
+                          <span>HEATMAP*</span>
+                        </PanelTitle>
+                        <EE.Consumer>
+                           {(val) => <ToolbarHeatMap evem={val} heatmapactive={this.state.heatmapactive} heatmapState={this.state.imageId === this.state.heatmapId} />}
+                        </EE.Consumer>
+                     </Panel>
+                    </div>
+                  </Col>
+                  <Col lg={9} style={{ paddingLeft: 0, paddingRight: 0 }} style={{ position: "relative" }}>
+                      <EE.Consumer>
+                         {(val) => <Viewer imageid={this.state.imageId} 
+                            evem={val} heatmapactive={this.state.heatmapactive} heatmapState={this.state.imageId === this.state.heatmapId}/>}
+                      </EE.Consumer>
+                      <div className="NOT-FOR-CLINICAL-USE">
+                        NOT FOR CLINICAL USE
+                      </div>
+                  </Col>
+                </Row>
+              </Container>
+            </EE.Provider> : this.state.dropzoneStatus ?
+            <div style={{ position: 'absolute', bottom: '46%', left: '46%', zIndex: 1000}}>
+              <img
+                  alt="arrow icon"
+                  src={require("../../assets/loading.gif")}
+                  width="100"
+                  height="100"
+                />
+            </div> : ""
+        }
         <div style={{position: 'absolute', right: '50px', bottom: 0}}>
           <img src={require("../../assets/edison-logo.png")} style={{ width: '120px' }} />
         </div>
@@ -460,7 +487,7 @@ class XrayDetails extends Component {
 
                 <h5 className="mt-2" style={{ fontSize: 18, color: 'white', fontFamily: 'GE Inspira Bold', letterSpacing: 2 }}> AI ALGORITHMS </h5>
               </div>
-              <div style={{ position: 'relative', height: '100%', borderRight: '1px solid rgba(29,48,76,1)', marginRight: '20px' }}>
+              <div style={{ position: 'relative', height: '100%', borderRight: '1px solid #3f4f66', marginRight: '20px' }}>
                 <div className="m-5 text-center right-panel-right">
                   <div
                     className="d-flex m-0 justify-content-center align-items-center image-section"
@@ -571,9 +598,10 @@ class XrayDetails extends Component {
                       this.state.pneumothorox === true ||
                        this.state.autoRotate === true 
                     }
-                    type="radio"
+                    type="checkbox"
                     id="test1"
-                    // name="autoRotate"
+                    value="autoRotate"
+                    name="checkbox"
                     className="xray-detail-radio-btn"
                     onClick={this.autoRotate}
                   />
@@ -622,9 +650,10 @@ class XrayDetails extends Component {
                       this.state.pneumothorox === true ||
                       this.state.colHeck === true 
                     }
-                    type="radio"
+                    type="checkbox"
                     id="test2"
-                    // name="colHeck"
+                    name="checkbox"
+                    value="colheck"
                     className="xray-detail-radio-btn"
                     onClick={this.colHeck}
                   />
@@ -662,7 +691,7 @@ class XrayDetails extends Component {
                       </div> : ""
                   }
                 </div>
-                <div className="btm-border text-left small" style={{ "borderBottom": "1px solid rgba(29, 48, 76, 1)", "paddingBottom": "10px" }}>
+                <div className="btm-border text-left small" style={{ "borderBottom": "1px solid #3f4f66", "paddingBottom": "10px" }}>
                   <input
                     defaultChecked={
                       this.state.pneumothorox === true ||
@@ -672,9 +701,10 @@ class XrayDetails extends Component {
                       this.state.pneumothorox === true ||
                      this.state.viewCheck === true 
                     }
-                    type="radio"
+                    type="checkbox"
                     id="test3"
-                    // name="viewCheck"
+                    name="checkbox"
+                    value="viewcheck"
                     className="xray-detail-radio-btn"
                     onClick={this.viewCheck}
                   />
@@ -717,13 +747,14 @@ class XrayDetails extends Component {
               <div className="mt-5 mb-4 btm-border">
                 <h5 className="mt-3" style={{ fontSize: 18, color: 'white', fontFamily: 'GE Inspira Bold', letterSpacing: 2 }}>CRITICAL CARE SUITE</h5>
               </div>
-              <div className="btm-border text-left small" style={{ "borderBottom": "1px solid rgba(29, 48, 76, 1)", "paddingBottom": "10px" }}>
+              <div className="btm-border text-left small" style={{ "borderBottom": "1px solid #3f4f66", "paddingBottom": "10px" }}>
                 <input
                   defaultChecked = {this.state.pneumothorox}
                   checked = {this.state.pneumothorox}
-                  type="radio"
+                  type="checkbox"
                   id="test4"
-                //   name="pneumothorox"
+                  value="pneumothorox"
+                  name="checkbox"
                   className="xray-detail-radio-btn"
                   onClick={this.onPneumothoroxChecked}
                 />
