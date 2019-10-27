@@ -4,7 +4,7 @@
   src: url(./assets/fonts/GEInspiraSans-Regular-v02.ttf) format('truetype');
 }
 
-html, body{
+html, body {
   background: url("./assets/image.jpg") !important;
   background-size: cover;
   background-position: top;

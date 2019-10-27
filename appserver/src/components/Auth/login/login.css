@@ -1,4 +1,4 @@
-body {
+/*body {
   background: url("../../../assets/image.jpg");
   background-size: cover;
   background-position: top;
@@ -10,15 +10,11 @@ body {
   background-color: transparent;
   color: antiquewhite;
   border-radius: 35px;
-/*<<<<<<< HEAD*/
   border:solid 2px  #00b5e2;
   padding-left: 20px;
   width: 100%;
   color: #00b5e2;
   font-size: ;
-/*=======
-  border-color: #00b5e2;
->>>>>>> master*/
 }
 .txt {
   color: rgb(0, 181, 226);
@@ -67,11 +63,9 @@ h5 {
 .headline {
   font-size: 60px;
   font-weight: bold;
-  /* letter-spacing: 10px; */
 }
 .sub-headline {
   font-size: 50px;
-  /* line-height: 4rem; */
 }
 .logo-container{
     display: flex;
@@ -83,4 +77,116 @@ h5 {
 }
 .btn-txt{
   font-size: xx-small;
+}*/
+
+@font-face {
+  font-family: 'GE Inspira Bold';
+  font-style: normal;
+  src: url(../../../assets/fonts/GEInspiraSans-Bold-v02.ttf) format('truetype');
+}
+
+.outer {
+  background: url("../../../assets/image.jpg");
+  background-size: cover;
+  background-position: top;
+  background: cover;
+  background-repeat: no-repeat;
+  background-color: rgb(0,181, 226);
+  font-family: 'GE Inspira' !important;
+  height: 100vh;
+}
+.inp {
+  background-color: transparent;
+  border-radius: 35px;
+  border:solid 1px #00b5e2;
+  padding-left: 20px;
+  width: 100%;
+  color: rgb(0, 181, 226);
+  height: 35px;
+}
+.txt {
+  color: rgb(0, 181, 226);
+  font-size: 12px;
+}
+.txt-underline {
+    color: rgb(0, 181, 226);
+    text-decoration: underline;
+  }
+h2,
+h4,
+h1,
+h3,
+h5 {
+  color: azure;
+}
+
+.border-right {
+  display: flex;
+  align-items: center;
+  padding: 0 35px 0 0;
+  height: 200px;
+  border-right: 1px solid #00b5e2 !important;
+}
+.form-container {
+  width: 100%;
+  padding: 30px 80px 45px 45px;
+}
+.form-container .form-group {
+  margin-bottom: 20px;
+}
+.login-title.m-2 {
+  margin-bottom: 15px !important;
+}
+.login-button.mt-2 {
+  margin-top: 15px !important;
+  padding: 12px 75px;
+}
+.tst {
+  height: inherit;
+}
+.right-section {
+  padding: 0 0 0 60px;
+  margin-bottom: auto
+}
+.headline-container {
+  width: 400px;
+}
+.headline {
+  font-size: 60px;
+  letter-spacing: 0.1em;
+  overflow-wrap: break-word;
+  color: #fff;
+  font-family: 'GE Inspira Bold';
+}
+.sub-headline {
+  font-size: 60px;
+  line-height: 4rem;
+  letter-spacing: 0.2em;
+  overflow-wrap: break-word;
+  color: #fff;
+}
+.logo-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 50px;
+}
+.login-adver {
+  line-height: 40px;
+  margin-left: 60px !important;
+}
+.logo-heading {
+  font-size: 22px;
+  font-weight: bold;
+  color: white;
+}
+.btn-style{
+  padding: 5px 40px;
+  background-color: rgb(0, 181, 226);
+  color: #fff;
+  border-radius: 35px;
+  border: none;
+}
+.btn-style:hover{
+  opacity: 0.8;
 }

@@ -1,0 +1,12 @@
+@font-face {
+  font-family: 'GE Inspira';
+  font-style: normal;
+  src: url(../../assets/fonts/GEInspiraSans-Regular-v02.ttf) format('truetype');
+}
+
+.footer-copyright {
+	padding-top: 8px;
+	padding-bottom: 8px;
+	font-family: 'GE Inspira';
+	font-size: 12px;
+}
