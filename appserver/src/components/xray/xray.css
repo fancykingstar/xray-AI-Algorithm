@@ -5,6 +5,7 @@
 }
 
 .bg {
+<<<<<<< HEAD
   height: 100%;
   background-size: auto;
   background-position: top;
@@ -17,6 +18,18 @@
   background: -webkit-gradient(linear, left top, left bottom, from(rgba(19,41,75,.9)));
   position: absolute;
   top: 50px;
+/*=======
+height: 100vh;
+    background:url("../../assets/image.jpg");
+    background-size: auto;
+    background-position: top;
+    background-repeat: no-repeat;
+  }
+  .right-panel {
+  background:linear-gradient(rgba(0,0,0,.3));
+  position: absolute;
+  top: 3px;
+>>>>>>> master*/
   right: -10px;
   width: 50vw;
   /*height: 100%;*/
@@ -34,7 +47,7 @@
 .closed {
   animation: slide-out 2s forwards;
   -webkit-animation: slide-out 2s forwards;
-  right: 85px;
+  right: 20px;
 }
 
 @keyframes slide-in {
@@ -82,11 +95,12 @@ transform: scaleX(-1);
 filter: fliph; /*IE*/
 }
 
-  .xray-detail-radio-btn:checked,
-.xray-detail-radio-btn:not(:checked) {
+  [type="radio"]:checked,
+[type="radio"]:not(:checked) {
     position: absolute;
     left: -9999px;
 }
+/*<<<<<<< HEAD*/
 
 label {
   font-family: "GE Inspira Bold";
@@ -102,6 +116,10 @@ label {
   color: #ed7d31;
 }
 .xray-detail-radio-btn:not(:checked) + label
+/*=======
+[type="radio"]:checked + label,
+[type="radio"]:not(:checked) + label
+>>>>>>> master*/
 {
     position: relative;
     padding-left: 28px;
@@ -110,6 +128,7 @@ label {
     display: inline-block;
     color: #00B5E2;
 }
+/*<<<<<<< HEAD*/
 .xray-detail-radio-btn:checked + label:before{
   content: '';
   position: absolute;
@@ -122,6 +141,10 @@ label {
   background: transparent;
 }
 .xray-detail-radio-btn:not(:checked) + label:before {
+/*=======
+[type="radio"]:checked + label:before,
+[type="radio"]:not(:checked) + label:before {
+>>>>>>> master*/
     content: '';
     position: absolute;
     left: -30px;
@@ -132,6 +155,7 @@ label {
     border-radius: 100%;
     background: transparent;
 }
+/*<<<<<<< HEAD*/
 .xray-detail-radio-btn:checked + label:after{
   content: '';
     width: 12px;
@@ -145,6 +169,10 @@ label {
     transition: all 0.2s ease;
 }
 .xray-detail-radio-btn:not(:checked) + label:after {
+/*=======
+[type="radio"]:checked + label:after,
+[type="radio"]:not(:checked) + label:after {
+>>>>>>> master*/
     content: '';
     width: 12px;
     height: 12px;
@@ -156,12 +184,12 @@ label {
     -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
 }
-.xray-detail-radio-btn:not(:checked) + label:after {
+[type="radio"]:not(:checked) + label:after {
     opacity: 0;
     -webkit-transform: scale(0);
     transform: scale(0);
 }
-.xray-detail-radio-btn:checked + label:after {
+[type="radio"]:checked + label:after {
     opacity: 1;
     -webkit-transform: scale(1);
     transform: scale(1);
@@ -184,6 +212,7 @@ label {
     background: #3f4f66;
     z-index: -1;
 }
+<<<<<<< HEAD
 
 .inputfile {
 	width: 0.3px;
@@ -436,3 +465,5 @@ label {
   }
 }
 
+/*=======
+>>>>>>> master*/

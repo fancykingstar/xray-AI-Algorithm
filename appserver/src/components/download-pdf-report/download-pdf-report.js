@@ -29,7 +29,7 @@ class DownloadPdf extends Component {
   }
 
   componentDidMount() {
-    setTimeout(this.downloadPDF, 3000);
+    setTimeout(this.downloadPDF, 10000);
   }
 
   downloadPDF = () => {

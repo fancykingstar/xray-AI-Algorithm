@@ -96,16 +96,7 @@ class XrayDetails extends Component {
       image: true
     });
 
-    let reader = new FileReader();
-
-    reader.onloadend = () => {
-      this.setState({
-        imagePreviewUrl: reader.result
-      });
-    };
-
-    reader.readAsDataURL(event.target.files[0]);
-  };
+    }
 
   rightPanelState = () => {
     this.setState({ openRightPanel: !this.state.openRightPanel });
