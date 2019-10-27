@@ -1,17 +1,73 @@
 import React, {Component} from "react";
+import EE from '../ee';
+import Viewer from '../Viewer';
+import UploadViewer from '../xray/UploadViewer';
+import EventEmitter from 'wolfy87-eventemitter'
 import "./download-pdf-report.scss";
+import axios from 'axios';
+import { saveAs } from 'file-saver';
+import * as html2canvas from 'html2canvas';
+import * as jsPDF from 'jspdf'
 
 class DownloadPdf extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showSignupButton: false
+      showSignupButton: false,
+      imageId: localStorage.getItem('imageId'),
+      rotation: localStorage.getItem('rotation'),
+      chestfrontal: localStorage.getItem('chestfrontal'),
+      lungfield: localStorage.getItem('lungfield'),
+      ptx: localStorage.getItem('ptx'),
+      heatmapactive: localStorage.getItem('heatmapactive'),
+      heatmapState: localStorage.getItem('heatmapState'),
     };
+
+    this.toggleHeatmap = this.toggleHeatmap.bind(this);
+    this.ee = new EventEmitter();
+    this.ee.addListener('togglehmap', this.toggleHeatmap);
   }
 
+  componentDidMount() {
+    console.log()
+    setTimeout(this.downloadPDF, 10000);
+  }
+
+  downloadPDF = () => {
+    const divHeight = this.divElement.clientHeight;
+    const divWidth = this.divElement.clientWidth;
+    var ratio = divHeight / divWidth;
+
+    const pdf = document.getElementById('donwloadPdf');
+      const imageCanvas = document.getElementById('imageCanvas');
+      html2canvas(pdf, {
+        height: divHeight,
+        width: divWidth
+      })
+        .then((canvas) => {
+          const imgData = canvas.toDataURL('image/png');
+
+          const pdf = new jsPDF(
+            {orientation: 'landscape',}
+          );
+
+          const width = pdf.internal.pageSize.getWidth();    
+          let height = pdf.internal.pageSize.getHeight();
+          height = ratio * width;
+
+          pdf.addImage(imgData, 'PNG', 0, 0, width-20, height-10);
+          pdf.save("download.pdf");  
+        });
+  }
+
+  toggleHeatmap = (active) => {
+      return;
+   }
+
   render() {
+
     return (
-      <div className="">
+      <div id="donwloadPdf" ref={ (divElement) => this.divElement = divElement}>
         <div className="pdf-component">
           <div className="row">
             <div className="col-1 text-center">
@@ -23,13 +79,20 @@ class DownloadPdf extends Component {
                   <div className="row">
                     <div className="col-8">
                       <div className='d-block mb-3'>
-                        <img src="/ge.png" width="40" height="40" className="d-inline-block align-center" alt=""/>
+                        <div style={{ height: "calc(100vh - 400px)" }} id="imageCanvas">
+                          <EE.Provider value={this.ee}>
+                            <EE.Consumer>
+                               {(val) => <Viewer imageid={localStorage.getItem('imageid')} 
+                                  evem={val} heatmapactive={localStorage.getItem('heatmapactive')} heatmapState={localStorage.getItem('heatmapState')}/>}
+                            </EE.Consumer>
+                          </EE.Provider>
+                        </div>
                         <span className='ml-3'>GE Healthcare </span>
                         <span className='ml-4 bold letter-spacing text-muted'>X-RAY AI EXPERIENCE</span>
                       </div>
                       <div className='d-block'>
                         <figure className="figure">
-                          <img src={require('../../assets/chest.png')} className='pdf-img'/>
+                   
                           <figcaption className="figure-caption">
                             <small>
                               1 For demonstration only. Not available for sale.
@@ -69,7 +132,7 @@ class DownloadPdf extends Component {
                               <small>RESULT</small>
                             </div>
                             <div>
-                              <small>100.00</small>
+                              <small>{Number(localStorage.getItem('rotation')).toFixed(2)}</small>
                             </div>
                           </div>
                         </li>
@@ -82,7 +145,7 @@ class DownloadPdf extends Component {
                               <small>RESULT</small>
                             </div>
                             <div>
-                              <small>100.00</small>
+                              <small>{Number(localStorage.getItem('chestfrontal')).toFixed(2)}</small>
                             </div>
                           </div>
                         </li>
@@ -95,7 +158,7 @@ class DownloadPdf extends Component {
                               <small>RESULT</small>
                             </div>
                             <div>
-                              <small>81.47</small>
+                              <small>{Number(localStorage.getItem('lungfield')).toFixed(2)}</small>
                             </div>
                           </div>
                         </li>
@@ -113,7 +176,7 @@ class DownloadPdf extends Component {
                               <small>RESULT</small>
                             </div>
                             <div>
-                              <small>100.00 <sup>2</sup></small>
+                              <small>{Number(localStorage.getItem('ptx')).toFixed(2)} <sup>2</sup></small>
                             </div>
                           </div>
                         </li>
