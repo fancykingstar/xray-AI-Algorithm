@@ -103,6 +103,7 @@ h5 {
   width: 100%;
   color: rgb(0, 181, 226);
   height: 35px;
+  font-size: 14px;
 }
 .txt {
   color: rgb(0, 181, 226);
@@ -116,7 +117,8 @@ h2,
 h4,
 h1,
 h3,
-h5 {
+h5,
+h6 {
   color: azure;
 }
 
@@ -129,7 +131,7 @@ h5 {
 }
 .form-container {
   width: 100%;
-  padding: 30px 80px 45px 45px;
+  padding: 70px 80px 45px 45px;
 }
 .form-container .form-group {
   margin-bottom: 20px;
@@ -176,7 +178,7 @@ h5 {
   margin-left: 60px !important;
 }
 .logo-heading {
-  font-size: 22px;
+  font-size: 24px;
   font-weight: bold;
   color: white;
 }
@@ -189,4 +191,7 @@ h5 {
 }
 .btn-style:hover{
   opacity: 0.8;
+}
+.form-container h5 {
+  font-size: 18px;
 }

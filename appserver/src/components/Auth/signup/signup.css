@@ -6,7 +6,7 @@
   position: relative;
 }
 .bg {
-  /*background:url("../../../assets/image.jpg");*/
+  background:url("../../../assets/image.jpg");
 
   background-size: auto;
   background-position: 0%;
@@ -39,6 +39,9 @@ p {
 .inp:focus {
   background-color: #13294b;
 }
+select.inp:focus {
+  background-color: transparent;
+}
 .sub-headline {
   font-size: 50px;
   line-height: 4rem;
@@ -46,7 +49,7 @@ p {
   overflow-wrap: break-word;
 }
 .logo-heading {
-  font-size: 30px;
+  /*font-size: 30px;*/
   font-weight: bold;
 }
 
@@ -114,7 +117,7 @@ p {
   border-left: 1px solid #00b5e2 !important;
   position: absolute;
   left: 0;
-  height: 300px;
+  height: 320px;
 }
 
 [type="radio"]:checked,
@@ -168,4 +171,46 @@ p {
     opacity: 1;
     -webkit-transform: scale(1);
     transform: scale(1);
+}
+
+.signup-button {
+  margin-top: 5px;
+  padding: 12px 75px;
+}
+
+.signup-discription p {
+  font-size: 12px;
+}
+
+.drop-menu p {
+  font-size: 14px; 
+  color: rgb(0, 181, 226);
+  padding-left: 20px;
+  cursor: pointer;
+}
+
+.drop-menu p:hover, .drop-menu p:focus, .drop-menu p.active {
+  color: white;
+}
+
+.drop-menu p {
+  margin-bottom: 5px;
+}
+
+.drop-menu p:last-child {
+  margin-bottom: 20px; 
+}
+
+#role::after {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  content: "";
+  border-top: .6em solid;
+  border-right: .6em solid transparent;
+  border-bottom: 0;
+  border-left: .6em solid transparent;
+  float: right;
+  margin-top: 8px;
+  margin-right: 20px;
 }

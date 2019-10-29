@@ -115,7 +115,7 @@ class Login extends Component {
                   ENTER HERE
                 </button>
 
-                <div className="row mt-3 ml-1">
+                <div className="row mt-2 ml-1">
                   <Link to="/signup">
                     <span className="txt">New User ? </span>
                     <span className="txt-underline txt ml-1">
@@ -138,8 +138,8 @@ class Login extends Component {
                 <img
                   alt=""
                   src={require('../../../assets/logo-ge.svg')}
-                  width="100"
-                  height="100"
+                  width="110"
+                  height="110"
                   style={{ color: "white" }}
                   className="d-inline-block align-top img-fluid"
                 />

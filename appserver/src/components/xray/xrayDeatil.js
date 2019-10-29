@@ -3,7 +3,7 @@ import { Card, Badge, Row, Col, Container, Dropdown } from 'react-bootstrap';
 import Upload from './upload';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { Sidebar, Panel, PanelTitle} from './sidebar';
-import AppDropZone from './AppDropZone';
+import AppDropZone from './AppDropZone';  
 import EE from './ee';
 import EventEmitter from 'wolfy87-eventemitter'
 import Toolbar from "./Toolbar";
@@ -440,17 +440,16 @@ class XrayDetails extends Component {
                 />
             </div> : ""
         }
-        <div style={{position: 'absolute', right: '50px', bottom: 0}}>
+        {/*<div style={{position: 'absolute', right: '50px', bottom: 0}}>
           <img src={require("../../assets/edison-logo.png")} style={{ width: '120px' }} />
-        </div>
+        </div> */}
         <div
           className={
-            "right-panel m-2 " +
+            "right-panel " +
             (this.state.openRightPanel ? "opened" : "closed")
           }
-          style={{ height: '100%' }}
         >
-          <div style={{height: '100%'}}>
+          <div style={{ height: '100%' }}>
             {/* side image */}
             <div className="arrow-bar" style={{ position: 'absolute', transform: 'translate(-25px, 200px)', zIndex: 999 }}>
               <img
@@ -466,8 +465,8 @@ class XrayDetails extends Component {
              {  !this.state.openRightPanel && <h1 style={{ transform: "rotate(90deg) translate(-215px, 50px)", fontSize: 22, letterSpacing: 5 }}> AI ALGORITHMS</h1>}
             </div>
             {/* ends */}
-          <div className="row" style={{ "height": "calc(100% - 24px)" }}>
-            <div className="col-lg-6">
+          <div className="row" style={{ height: '100%', marginLeft: 0, marginRight: 0 }}>
+            <div className="col-lg-5" style={{ height: '100%', paddingLeft: 0, paddingRight: 0 }}>
               <div className="row" style={{ marginLeft: 35 }}>
                 <img
                   alt="arrow icon"
@@ -478,7 +477,7 @@ class XrayDetails extends Component {
 
                 <h5 className="mt-2" style={{ fontSize: 18, color: 'white', fontFamily: 'GE Inspira Bold', letterSpacing: 2 }}> AI ALGORITHMS </h5>
               </div>
-              <div style={{ position: 'relative', height: '100%', borderRight: '1px solid #3f4f66', marginRight: '20px' }}>
+              <div style={{ position: 'relative', borderRight: '1px solid #3f4f66', marginRight: '20px', height: "calc(100vh - 175px)" }}>
                 <div className="m-5 text-center right-panel-right">
                   <div
                     className="d-flex m-0 justify-content-center align-items-center image-section"
@@ -576,8 +575,8 @@ class XrayDetails extends Component {
               </div>
             </div>
             {/* first section end */}
-             <div id="rightAlgorithm" className={"col-lg-5" + (this.state.openRightPanel ? "" : "quality-alignment")} style={{ marginBottom: 50}}>
-              <h5 className="mt-3" style={{ fontSize: 18, color: 'white', fontFamily: 'GE Inspira Bold', letterSpacing: 2 }}>QUALITY CARE SUITE</h5>
+             <div id="rightAlgorithm" className={"col-lg-7" + (this.state.openRightPanel ? "" : "quality-alignment")} style={{ paddingLeft: 50, paddingRight: 30}}>
+              <h5 className="" style={{ fontSize: 18, color: 'white', fontFamily: 'GE Inspira Bold', letterSpacing: 2, marginTop: '7px', marginBottom: '25px' }}>QUALITY CARE SUITE</h5>
               <div>
                 <div className="btm-border text-left small">
                   <input
@@ -682,7 +681,7 @@ class XrayDetails extends Component {
                       </div> : ""
                   }
                 </div>
-                <div className="btm-border text-left small" style={{ "borderBottom": "1px solid #3f4f66", "paddingBottom": "10px" }}>
+                <div className="btm-border text-left small" style={{ "paddingBottom": "10px" }}>
                   <input
                     defaultChecked={
                       this.state.pneumothorox === true ||
@@ -738,7 +737,7 @@ class XrayDetails extends Component {
               <div className="mt-5 mb-4 btm-border">
                 <h5 className="mt-3" style={{ fontSize: 18, color: 'white', fontFamily: 'GE Inspira Bold', letterSpacing: 2 }}>CRITICAL CARE SUITE</h5>
               </div>
-              <div className="btm-border text-left small" style={{ "borderBottom": "1px solid #3f4f66", "paddingBottom": "10px" }}>
+              <div className="btm-border text-left small" style={{ "paddingBottom": "10px" }}>
                 <input
                   defaultChecked = {this.state.pneumothorox}
                   checked = {this.state.pneumothorox}

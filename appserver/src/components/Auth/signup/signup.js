@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./signup.css";
 import Form from "react-bootstrap/Form";
+import Dropdown from 'react-bootstrap/Dropdown';
 
 class Signup extends Component {
   constructor(props) {
@@ -8,7 +9,14 @@ class Signup extends Component {
     this.state = {
         showInputOtherRole:false,
         leftPanelOpacity:false,
-        checked: false
+        checked: false,
+        dropMenu: [
+          "Radiologist",
+          "Radiologist Technologist",
+          "Radiologist Management",
+          "Other",
+        ],
+        dropdownStatus: false,
     };
   }
 
@@ -20,8 +28,21 @@ class Signup extends Component {
     }, 2800);
   }
 
+  componentDidMount() {
+  }
+
   handleCheckbox = () => {
     this.setState({checked: !this.state.checked});
+  }
+
+  handleDropDown = () => {
+    this.setState({dropdownStatus: !this.state.dropdownStatus});
+  }
+
+  handleDropMenu = (index) => {    
+    document.getElementById("role").innerHTML = this.state.dropMenu[index];
+    this.setState({dropdownStatus: false, showInputOtherRole: false});
+    if (index === 3) this.setState({showInputOtherRole: true});
   }
 
   render() {
@@ -33,7 +54,7 @@ class Signup extends Component {
 
            <div>
               <Form className="signup-form">
-                <h4>SIGN UP</h4>
+                <h6 style={{ marginBottom: '20px' }}>SIGN UP</h6>
                 <Form.Group controlId="formBasicEmail">
                   <input
                     className="inp"
@@ -50,12 +71,22 @@ class Signup extends Component {
                 </Form.Group>
                 
                 <Form.Group controlId="formBasicEmail">
-                  <input
+                  <div
                     className="inp"
                     type="text"
-                    placeholder="Title/Role"
-                  />
+                    onClick={this.handleDropDown}
+                    style={{ paddingTop: "6px" }}
+                    id="role"
+                  >Title/Role</div>
                 </Form.Group>
+                {
+                  this.state.dropdownStatus ? 
+                    <div className="drop-menu">
+                      { this.state.dropMenu.map((text, index) => {
+                          return <p key={index} onClick={(e) => this.handleDropMenu(index)}>{text}</p>
+                      })}
+                    </div>: ""
+                }
                 
                {this.state.showInputOtherRole ?  <Form.Group controlId="formBasicEmail">
                   <input
@@ -105,8 +136,8 @@ class Signup extends Component {
           </div>
           <div className="col-xl-5 col-lg-6 signup-discription small mt-4">
 
-           <div>
-              <h6>Terms and conditions </h6>
+           <div style={{ overflow: 'auto', height: '640px'}}>
+              <h6 style={{ fontSize: "14px" }}>Terms and conditions </h6>
               <p>
                 Legal text goes here. Lorem ipsum dolor sit amet, dicat
                 facilisis evertitur an quo, ius populo aperiam lucilius eu,
@@ -152,14 +183,14 @@ class Signup extends Component {
                   onChange={this.handleCheckbox}
                   defaultChecked={this.state.checked}
                 />
-                <label htmlFor="signupCheck">I accept Terms & Conditions above.
+                <label htmlFor="signupCheck" style={{ fontSize: "14px" }}>I accept Terms & Conditions above.
                 </label>
               </div>
               {
                 this.state.checked ?
                 <div>
                   <button
-                    className="mt-2 btn-style small login-button"
+                    className="btn-style small signup-button"
                     type="submit"
                   >
                     SIGN UP
